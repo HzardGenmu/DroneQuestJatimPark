@@ -24,6 +24,7 @@ public class DroneSprayer : MonoBehaviour
     private float sprayTimer;
 
     [SerializeField] private DroneBattery battery;
+    [SerializeField] private DroneController drone;
 
     private SprayType currentSprayType;
 
@@ -69,7 +70,11 @@ public class DroneSprayer : MonoBehaviour
     {
         if (isSpraying)
             return;
-
+        if (drone.CurrentState !=
+            DroneController.DroneState.Flying)
+        {
+            return;
+        }
         isSpraying = true;
 
         Debug.Log($"START SPRAYING {currentSprayType}");
