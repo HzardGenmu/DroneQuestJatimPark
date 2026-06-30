@@ -21,6 +21,9 @@ public class DroneBattery : MonoBehaviour
 
     private bool isSpraying;
 
+    public float CurrentBattery => currentBattery;
+    public float MaxBattery => maxBattery;
+
     private void Start()
     {
         currentBattery = maxBattery;

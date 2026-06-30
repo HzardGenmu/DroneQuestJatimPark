@@ -9,13 +9,28 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 7d680a23d68d5b54ea0965120ba119d8
   - enabled: 1
-    path: Assets/Scenes/Erghi.unity
-    guid: b8633873dbcd1f6449c91fa254742d8d
+    path: Assets/Scenes/MapSelector.unity
+    guid: 6bfb9c0d11db2684992a61c86a109842
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Radit/Scenes/Maps/Map #1.unity
+    guid: 6001105fbc9adc744b515505b1340f70
   - enabled: 1
-    path: Assets/Scenes/LevelSelector.unity
-    guid: dc34f3f9bed49064b8fc0093ba85f802
+    path: Assets/Radit/Scenes/Maps/Map #2.unity
+    guid: 8dc76dfc8c684ca4fb6ce5d12a8db31b
+  - enabled: 1
+    path: Assets/Radit/Scenes/Maps/Map #3.unity
+    guid: 345f043bdc92deb46a358b13b46e46cf
+  - enabled: 1
+    path: Assets/Radit/Scenes/Maps/Map #4.unity
+    guid: 40bf3249c5c6a89459a9aa1e68cbb265
+  - enabled: 1
+    path: Assets/Radit/Scenes/Maps/Map #5.unity
+    guid: b8f736d2c347e044f9cf6a2977a812ad
+  - enabled: 1
+    path: Assets/Radit/Scenes/Maps/Map #6.unity
+    guid: 62b3c835f5a66034496bffb9043b3b99
+  - enabled: 1
+    path: Assets/Radit/Scenes/Maps/Map #7.unity
+    guid: a1d9af5d01ac9384c8ecc6aa66174211
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: fd9c3659366331843901a2ea8f5fe8be, type: 3}

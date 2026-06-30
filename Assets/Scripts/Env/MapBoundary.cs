@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapBoundary : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class MapBoundary : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private SignalStaticEffect staticEffect;
 
+    [Header("UI")]
+    [SerializeField] private Image signalIcon;
+
+    [SerializeField] private Sprite signal4;
+    [SerializeField] private Sprite signal3;
+    [SerializeField] private Sprite signal2;
+    [SerializeField] private Sprite signal1;
     private void Update()
     {
         float distance =
@@ -26,6 +34,9 @@ public class MapBoundary : MonoBehaviour
         if (distance < warningRadius)
         {
             staticEffect.SetIntensity(0f);
+
+            signalIcon.sprite = signal4;
+
             return;
         }
 
@@ -36,6 +47,8 @@ public class MapBoundary : MonoBehaviour
                 distance);
 
         staticEffect.SetIntensity(t);
+
+        UpdateSignalIcon(t);
 
         if (distance >= respawnRadius)
         {
@@ -60,5 +73,32 @@ public class MapBoundary : MonoBehaviour
         staticEffect.SetIntensity(0f);
 
         Debug.Log("Drone lost signal. Returning to base.");
+    }
+
+    private void UpdateSignalIcon(float signalStrength)
+    {
+        if (signalStrength < 0.25f)
+            signalIcon.sprite = signal4;
+        else if (signalStrength < 0.5f)
+            signalIcon.sprite = signal3;
+        else if (signalStrength < 0.75f)
+            signalIcon.sprite = signal2;
+        else
+            signalIcon.sprite = signal1;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(mapCenter, warningRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(mapCenter, respawnRadius);
+
+        if (respawnPoint != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(respawnPoint.position, 1f);
+        }
     }
 }
