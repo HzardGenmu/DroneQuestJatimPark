@@ -27,6 +27,7 @@ public class DroneSprayer : MonoBehaviour
     [SerializeField] private DroneController drone;
 
     private SprayType currentSprayType;
+    public SprayType CurrentSprayType => currentSprayType;
 
     private void Update()
     {
@@ -111,7 +112,7 @@ public class DroneSprayer : MonoBehaviour
             if (crop == null)
                 continue;
 
-            crop.ReceiveTreatment(currentSprayType);
+            crop.ReceiveTreatment(currentSprayType, drone.CurrentAltitude);
         }
     }
 

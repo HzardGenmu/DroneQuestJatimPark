@@ -188,6 +188,7 @@ public class LevelSelectManager : MonoBehaviour
 
     public void StartLevel()
     {
+        Debug.Log(CurrentLevel.sceneName);
         SceneManager.LoadScene(CurrentLevel.sceneName);
     }
 

@@ -36,6 +36,9 @@ public class DroneController : MonoBehaviour
     public bool IsBusy =>
     CurrentState == DroneState.TakingOff ||
     CurrentState == DroneState.Landing;
+    public float CurrentAltitude => transform.position.y;
+    public float MinAltitude => minAltitude;
+    public float MaxAltitude => maxAltitude;
 
     public DroneState CurrentState { get; private set; }
 
@@ -113,21 +116,28 @@ public class DroneController : MonoBehaviour
             targetAltitude - transform.position.y;
 
         float verticalVelocity =
-            Mathf.Clamp(
-                altitudeDifference,
-                -1f,
-                1f) * altitudeSpeed;
+            altitudeDifference * altitudeSpeed;
 
-        Vector3 targetVelocity =
-            new Vector3(
-                horizontalVelocity.x,
-                verticalVelocity,
-                horizontalVelocity.z);
+        verticalVelocity =
+            Mathf.Clamp(verticalVelocity, -12f, 12f);
 
-        rb.linearVelocity = Vector3.Lerp(
-            rb.linearVelocity,
-            targetVelocity,
+        Vector3 velocity =
+            rb.linearVelocity;
+
+        velocity.x = Mathf.Lerp(
+            velocity.x,
+            horizontalVelocity.x,
             acceleration * Time.fixedDeltaTime);
+
+        velocity.z = Mathf.Lerp(
+            velocity.z,
+            horizontalVelocity.z,
+            acceleration * Time.fixedDeltaTime);
+
+        // No smoothing on Y
+        velocity.y = verticalVelocity;
+
+        rb.linearVelocity = velocity;
     }
 
     private void HandleTakeoff()
@@ -198,11 +208,10 @@ public class DroneController : MonoBehaviour
         if (CurrentState != DroneState.Flying)
             return;
 
-        targetAltitude =
-            Mathf.Lerp(
-                minAltitude,
-                maxAltitude,
-                sliderValue);
+        targetAltitude = Mathf.Lerp(
+            minAltitude,
+            maxAltitude,
+            sliderValue);
     }
 
     public bool CanLand()
