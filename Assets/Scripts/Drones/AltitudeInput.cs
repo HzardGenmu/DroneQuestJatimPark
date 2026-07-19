@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AltitudeInput : MonoBehaviour
 {
-    public DroneController drone;
+    [SerializeField] private DroneController drone;
 
     public void OnSliderChanged(float value)
     {

@@ -3,24 +3,30 @@ using UnityEngine;
 public class CropField : MonoBehaviour
 {
     [Header("Needs")]
-    [SerializeField] private bool needsWater;
-    [SerializeField] private bool needsFertilizer;
-    [SerializeField] private bool needsPesticide;
+    [SerializeField] private TreatmentRequirement water;
+    [SerializeField] private TreatmentRequirement fertilizer;
+    [SerializeField] private TreatmentRequirement pesticide;
 
-    private Renderer rend;
+    private Outline outline;
 
     private bool scanned;
 
     private void Awake()
     {
-        rend = GetComponent<Renderer>();
+        outline = GetComponent<Outline>();
+
+        outline.enabled = false;
     }
 
     private void Start()
     {
-        needsWater = Random.value > 0.5f;
-        needsFertilizer = Random.value > 0.5f;
-        needsPesticide = Random.value > 0.5f;
+        water.Needed = Random.value > .5f;
+        fertilizer.Needed = Random.value > .5f;
+        pesticide.Needed = Random.value > .5f;
+
+        water.OptimalAltitude = Random.Range(3f, 7f);
+        fertilizer.OptimalAltitude = Random.Range(5f, 9f);
+        pesticide.OptimalAltitude = Random.Range(2f, 5f);
 
         UpdateVisuals();
     }
@@ -28,7 +34,6 @@ public class CropField : MonoBehaviour
     public void SetScanned(bool value)
     {
         scanned = value;
-
         UpdateVisuals();
     }
 
@@ -36,44 +41,72 @@ public class CropField : MonoBehaviour
     {
         if (!scanned)
         {
-            rend.material.color = Color.white;
+            outline.enabled = false;
             return;
         }
 
-        if (needsPesticide)
-        {
-            rend.material.color = Color.red;
-        }
-        else if (needsFertilizer)
-        {
-            rend.material.color = Color.yellow;
-        }
-        else if (needsWater)
-        {
-            rend.material.color = Color.green;
-        }
+        outline.enabled = true;
+
+        if (pesticide.Needed)
+            outline.OutlineColor = Color.red;
+        else if (fertilizer.Needed)
+            outline.OutlineColor = Color.yellow;
+        else if (water.Needed)
+            outline.OutlineColor = Color.blue;
         else
+            outline.OutlineColor = Color.green;
+    }
+
+    public bool IsAltitudeCorrect(SprayType spray, float altitude)
+    {
+        TreatmentRequirement treatment = GetRequirement(spray);
+
+        if (!treatment.Needed)
+            return false;
+
+        return Mathf.Abs(
+            altitude -
+            treatment.OptimalAltitude)
+            <= treatment.Tolerance;
+    }
+
+    public float GetOptimalAltitude(SprayType spray)
+    {
+        return GetRequirement(spray).OptimalAltitude;
+    }
+
+    public float GetTolerance(SprayType spray)
+    {
+        return GetRequirement(spray).Tolerance;
+    }
+
+    private TreatmentRequirement GetRequirement(SprayType spray)
+    {
+        switch (spray)
         {
-            rend.material.color = Color.white;
+            case SprayType.Water:
+                return water;
+
+            case SprayType.Fertilizer:
+                return fertilizer;
+
+            default:
+                return pesticide;
         }
     }
 
-    public void ReceiveTreatment(SprayType sprayType)
+    public void ReceiveTreatment(SprayType spray, float altitude)
     {
-        switch (sprayType)
-        {
-            case SprayType.Water:
-                needsWater = false;
-                break;
+        TreatmentRequirement treatment =
+            GetRequirement(spray);
 
-            case SprayType.Fertilizer:
-                needsFertilizer = false;
-                break;
+        if (!treatment.Needed)
+            return;
 
-            case SprayType.Pesticide:
-                needsPesticide = false;
-                break;
-        }
+        if (!IsAltitudeCorrect(spray, altitude))
+            return;
+
+        treatment.Needed = false;
 
         UpdateVisuals();
     }
