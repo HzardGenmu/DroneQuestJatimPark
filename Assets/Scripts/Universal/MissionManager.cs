@@ -64,12 +64,17 @@ public class MissionManager : MonoBehaviour
 
     public void RegisterCrop(CropField crop)
     {
-        if (!cropFields.Contains(crop))
+        if (cropFields.Contains(crop))
         {
-            cropFields.Add(crop);
-            totalFields = cropFields.Count;
-
-            UpdateObjectiveUI();
+            Debug.Log($"Duplicate registration ignored: {crop.name} ({crop.GetEntityId()})");
+            return;
         }
+
+        cropFields.Add(crop);
+        totalFields = cropFields.Count;
+
+        Debug.Log($"Registered #{totalFields}: {crop.name} ({crop.GetEntityId()})");
+
+        UpdateObjectiveUI();
     }
 }

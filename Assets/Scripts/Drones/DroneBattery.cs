@@ -59,8 +59,11 @@ public class DroneBattery : MonoBehaviour
 
         playerInput.enabled = false;
 
+        GameEvents.OnBatteryDepleted?.Invoke();
+
         Debug.Log("Battery Depleted");
     }
+
 
     public void SetSpraying(bool value)
     {

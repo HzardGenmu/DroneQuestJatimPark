@@ -1,37 +1,53 @@
 using UnityEngine;
 
+public enum CropTreatment
+{
+    Water,
+    Fertilizer,
+    Pesticide
+}
+
 public class CropField : MonoBehaviour
 {
-    [Header("Needs")]
-    [SerializeField] private TreatmentRequirement water;
-    [SerializeField] private TreatmentRequirement fertilizer;
-    [SerializeField] private TreatmentRequirement pesticide;
+    [Header("Treatment")]
+    [SerializeField] private TreatmentRequirement requirement;
+    [SerializeField] private CropTreatment requiredTreatment;
+
+    [Header("Models")]
+    [SerializeField] private GameObject healthyModel;
+    [SerializeField] private GameObject fertilizerModel;
+    [SerializeField] private GameObject pesticideModel;
 
     private Outline outline;
-
     private bool scanned;
-    public bool IsCompleted =>
-    !water.Needed &&
-    !fertilizer.Needed &&
-    !pesticide.Needed;
+
+    public bool IsCompleted => !requirement.Needed;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
 
-        outline.enabled = false;
+        if (outline != null)
+            outline.enabled = false;
+
+        requiredTreatment = (CropTreatment)Random.Range(0, 3);
+
+        requirement.Needed = true;
+        requirement.OptimalAltitude = Random.Range(2f, 20f);
+
+        // Ensure all models stay active so Outline caches every renderer.
+        if (healthyModel != null)
+            healthyModel.SetActive(true);
+
+        if (fertilizerModel != null)
+            fertilizerModel.SetActive(true);
+
+        if (pesticideModel != null)
+            pesticideModel.SetActive(true);
     }
 
     private void Start()
     {
-        water.Needed = Random.value > .5f;
-        fertilizer.Needed = Random.value > .5f;
-        pesticide.Needed = Random.value > .5f;
-
-        water.OptimalAltitude = Random.Range(3f, 7f);
-        fertilizer.OptimalAltitude = Random.Range(5f, 9f);
-        pesticide.OptimalAltitude = Random.Range(2f, 5f);
-
         MissionManager.Instance.RegisterCrop(this);
         UpdateVisuals();
     }
@@ -44,98 +60,139 @@ public class CropField : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        if (!scanned)
+        if (outline != null)
+            outline.enabled = scanned;
+
+        if (!requirement.Needed)
         {
-            outline.enabled = false;
+            if (outline != null)
+                outline.OutlineColor = Color.green;
+
+            ShowHealthy();
+
             return;
         }
 
-        outline.enabled = true;
-
-        if (pesticide.Needed)
-            outline.OutlineColor = Color.red;
-        else if (fertilizer.Needed)
-            outline.OutlineColor = Color.yellow;
-        else if (water.Needed)
-            outline.OutlineColor = Color.blue;
-        else
-            outline.OutlineColor = Color.green;
-    }
-
-    public bool IsAltitudeCorrect(SprayType spray, float altitude)
-    {
-        TreatmentRequirement treatment = GetRequirement(spray);
-
-        if (!treatment.Needed)
-            return false;
-
-        return Mathf.Abs(
-            altitude -
-            treatment.OptimalAltitude)
-            <= treatment.Tolerance;
-    }
-
-    public float GetOptimalAltitude(SprayType spray)
-    {
-        return GetRequirement(spray).OptimalAltitude;
-    }
-
-    public float GetTolerance(SprayType spray)
-    {
-        return GetRequirement(spray).Tolerance;
-    }
-
-    private TreatmentRequirement GetRequirement(SprayType spray)
-    {
-        switch (spray)
+        switch (requiredTreatment)
         {
-            case SprayType.Water:
-                return water;
+            case CropTreatment.Water:
 
-            case SprayType.Fertilizer:
-                return fertilizer;
+                if (outline != null)
+                    outline.OutlineColor = Color.blue;
 
-            default:
-                return pesticide;
+                ShowHealthy();
+                break;
+
+            case CropTreatment.Fertilizer:
+
+                if (outline != null)
+                    outline.OutlineColor = Color.yellow;
+
+                ShowFertilizer();
+                break;
+
+            case CropTreatment.Pesticide:
+
+                if (outline != null)
+                    outline.OutlineColor = Color.red;
+
+                ShowPesticide();
+                break;
         }
+    }
+
+    #region Model Switching
+
+    private void ShowHealthy()
+    {
+        SetModelVisible(healthyModel, true);
+        SetModelVisible(fertilizerModel, false);
+        SetModelVisible(pesticideModel, false);
+    }
+
+    private void ShowFertilizer()
+    {
+        SetModelVisible(healthyModel, false);
+        SetModelVisible(fertilizerModel, true);
+        SetModelVisible(pesticideModel, false);
+    }
+
+    private void ShowPesticide()
+    {
+        SetModelVisible(healthyModel, false);
+        SetModelVisible(fertilizerModel, false);
+        SetModelVisible(pesticideModel, true);
+    }
+
+    private void SetModelVisible(GameObject model, bool visible)
+    {
+        if (model == null)
+            return;
+
+        Renderer[] renderers = model.GetComponentsInChildren<Renderer>(true);
+
+        foreach (Renderer r in renderers)
+            r.enabled = visible;
+    }
+
+    #endregion
+
+    public bool IsAltitudeCorrect(float altitude)
+    {
+        return Mathf.Abs(
+            altitude - requirement.OptimalAltitude)
+            <= requirement.Tolerance;
+    }
+
+    public float GetOptimalAltitude()
+    {
+        return requirement.OptimalAltitude;
+    }
+
+    public float GetTolerance()
+    {
+        return requirement.Tolerance;
+    }
+
+    public CropTreatment GetRequiredTreatment()
+    {
+        return requiredTreatment;
     }
 
     public void ReceiveTreatment(SprayType spray, float altitude)
     {
         Debug.Log($"[{name}] ReceiveTreatment called.");
+        Debug.Log($"[{name}] Required: {requiredTreatment}");
         Debug.Log($"[{name}] Spray: {spray}");
-        Debug.Log($"[{name}] Drone Altitude: {altitude:F2}");
 
-        TreatmentRequirement treatment =
-            GetRequirement(spray);
-
-        Debug.Log($"[{name}] Needed: {treatment.Needed}");
-        Debug.Log($"[{name}] Optimal Altitude: {treatment.OptimalAltitude:F2}");
-        Debug.Log($"[{name}] Tolerance: ±{treatment.Tolerance:F2}");
-
-        if (!treatment.Needed)
+        if (!requirement.Needed)
         {
-            Debug.Log($"[{name}] Wrong spray type or already completed.");
+            Debug.Log($"[{name}] Already completed.");
             return;
         }
 
-        if (!IsAltitudeCorrect(spray, altitude))
+        if ((CropTreatment)spray != requiredTreatment)
         {
-            Debug.Log($"[{name}] Altitude incorrect!");
+            Debug.Log($"[{name}] Wrong treatment type.");
+            return;
+        }
+
+        if (!IsAltitudeCorrect(altitude))
+        {
+            Debug.Log($"[{name}] Incorrect altitude.");
+            Debug.Log($"Optimal: {requirement.OptimalAltitude:F2}");
+            Debug.Log($"Current: {altitude:F2}");
             return;
         }
 
         Debug.Log($"[{name}] Treatment SUCCESS!");
 
-        treatment.Needed = false;
+        requirement.Needed = false;
 
         UpdateVisuals();
 
-        if (IsCompleted)
-        {
-            Debug.Log($"[{name}] Crop COMPLETED.");
+        GameEvents.OnPlantCompleted?.Invoke();
 
-            MissionManager.Instance.NotifyCropCompleted(this);
-        }
+        MissionManager.Instance.NotifyCropCompleted(this);
     }
 }

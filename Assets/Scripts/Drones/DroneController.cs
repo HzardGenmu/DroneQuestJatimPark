@@ -66,6 +66,11 @@ public class DroneController : MonoBehaviour
         CurrentState = DroneState.TakingOff;
     }
 
+    private void Start()
+    {
+        GameEvents.OnDroneTakeoff?.Invoke();
+    }
+
     private void FixedUpdate()
     {
         switch (CurrentState)
@@ -203,15 +208,16 @@ public class DroneController : MonoBehaviour
         }
     }
 
-    public void SetTargetAltitude(float sliderValue)
+    public void SetTargetAltitude(float altitude)
     {
         if (CurrentState != DroneState.Flying)
             return;
 
-        targetAltitude = Mathf.Lerp(
-            minAltitude,
-            maxAltitude,
-            sliderValue);
+        targetAltitude =
+            Mathf.Clamp(
+                altitude,
+                minAltitude,
+                maxAltitude);
     }
 
     public bool CanLand()
@@ -245,8 +251,9 @@ public class DroneController : MonoBehaviour
         if (!CanLand())
             return;
 
-        CurrentState =
-            DroneState.Landing;
+        CurrentState = DroneState.Landing;
+
+        GameEvents.OnDroneLanding?.Invoke();
     }
 
     public void BeginTakeoff()
@@ -256,8 +263,9 @@ public class DroneController : MonoBehaviour
 
         targetAltitude = 3f;
 
-        CurrentState =
-            DroneState.TakingOff;
+        CurrentState = DroneState.TakingOff;
+
+        GameEvents.OnDroneTakeoff?.Invoke();
     }
 
     private void HandleVisualTilt()
