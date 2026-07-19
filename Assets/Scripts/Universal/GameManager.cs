@@ -1,11 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+public enum GameState
+{
+    MainMenu,
+    Gameplay,
+    Summary,
+    Transition
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public static event System.Action<GameState> OnGameStateChanged;
     public LevelData CurrentLevel { get; private set; }
+    public GameState CurrentState { get; private set; }
 
     private void Awake()
     {
@@ -18,22 +28,57 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        CurrentState = GameState.MainMenu;
+
+        OnGameStateChanged?.Invoke(CurrentState);
     }
 
-    public void SetCurrentLevel(LevelData level)
+    public void ChangeState(
+        GameState state,
+        LevelData level = null)
     {
+        if (CurrentState != state)
+        {
+            CurrentState = state;
+
+            Debug.Log($"Game State -> {state}");
+
+            OnGameStateChanged?.Invoke(state);
+        }
+
         CurrentLevel = level;
-    }
+        // Stop any gameplay audio before switching scenes.
+        AudioManager.Instance.StopChannel(AudioChannel.SFX);
+        AudioManager.Instance.StopChannel(AudioChannel.Ambience);
 
-    public void ClearCurrentLevel()
-    {
-        CurrentLevel = null;
-    }
+        switch (state)
+        {
+            case GameState.Gameplay:
 
-    public void StartLevel(LevelData level)
-    {
-        CurrentLevel = level;
+                if (level != null)
+                    SceneManager.LoadScene(level.sceneName);
+                AudioManager.Instance.SetUIVolume(1f);
+                break;
 
-        SceneManager.LoadScene(level.sceneName);
+            case GameState.MainMenu:
+
+                AudioManager.Instance.StopGameplayAudio();
+
+                SceneManager.LoadScene("MainMenu");
+
+                break;
+
+            case GameState.Summary:
+
+                SceneManager.LoadScene("Summary");
+
+                break;
+
+            case GameState.Transition:
+
+                SceneManager.LoadScene("Transition");
+
+                break;
+        }
     }
 }

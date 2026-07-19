@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -27,6 +26,8 @@ public class PauseMenu : MonoBehaviour
 
         pausePanel.SetActive(true);
 
+        AudioManager.Instance.PauseAll();
+
         Time.timeScale = 0f;
     }
 
@@ -34,15 +35,21 @@ public class PauseMenu : MonoBehaviour
     {
         paused = false;
 
-        pausePanel.SetActive(false);
-
         Time.timeScale = 1f;
+
+        AudioManager.Instance.ResumeAll();
+
+        AudioManager.Instance.Play(
+            AudioManager.Instance.audioLibrary.button);
+        Debug.Log(AudioManager.Instance.GetEntityId());
+        pausePanel.SetActive(false);
+        AudioManager.Instance.SetUIVolume(1f);
     }
 
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("MainMenu");
+        GameManager.Instance.ChangeState(GameState.MainMenu);
     }
 }

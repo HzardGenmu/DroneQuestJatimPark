@@ -24,6 +24,18 @@ public class MapBoundary : MonoBehaviour
     [SerializeField] private Sprite signal3;
     [SerializeField] private Sprite signal2;
     [SerializeField] private Sprite signal1;
+
+    private AudioHandle signalHandle;
+
+    private void Start()
+    {
+        signalHandle =
+            AudioManager.Instance.Play(
+                AudioManager.Instance.audioLibrary.lostSignal);
+
+        signalHandle.Source.volume = 0f;
+    }
+
     private void Update()
     {
         float distance =
@@ -33,7 +45,10 @@ public class MapBoundary : MonoBehaviour
 
         if (distance < warningRadius)
         {
-            staticEffect.SetIntensity(0f);
+            if (signalHandle != null)
+            {
+                signalHandle.Source.volume = 0f;
+            }
 
             signalIcon.sprite = signal4;
 
@@ -47,6 +62,15 @@ public class MapBoundary : MonoBehaviour
                 distance);
 
         staticEffect.SetIntensity(t);
+
+        if (signalHandle != null && signalHandle.IsValid)
+        {
+            signalHandle.Source.volume =
+            Mathf.Lerp(
+                signalHandle.Source.volume,
+                AudioManager.Instance.audioLibrary.lostSignal.volume * t,
+                Time.deltaTime * 5f);
+        }
 
         UpdateSignalIcon(t);
 
@@ -71,7 +95,11 @@ public class MapBoundary : MonoBehaviour
         }
 
         staticEffect.SetIntensity(0f);
-
+        
+        if (signalHandle != null)
+        {
+            signalHandle.Source.volume = 0f;
+        }
         Debug.Log("Drone lost signal. Returning to base.");
     }
 

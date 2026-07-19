@@ -25,7 +25,7 @@ public class MapLevelButton : MonoBehaviour
     [SerializeField] private Sprite emptyStar;
 
     [Header("Animation")]
-    [SerializeField] private float selectedScale = 1.15f;
+    [SerializeField] private float selectedScale = 1.1f;
     [SerializeField] private float animationDuration = 0.25f;
 
     private bool unlocked;

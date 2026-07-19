@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fe3d706ffb8b94c8d1aaa8fa174e8b, type: 3}
+  m_Name: Library
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  button:
+    clip: {fileID: 8300000, guid: b9e168ef2bb0a4447b698ae2b561b5d3, type: 3}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  lockedButton:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  spray:
+    clip: {fileID: 8300000, guid: c0b7cde1751f7fb4b9530ff78c87903c, type: 3}
+    channel: 1
+    loop: 1
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  droneFly:
+    clip: {fileID: 8300000, guid: 0a00f45a0d3423242b7235363b87394c, type: 3}
+    channel: 4
+    loop: 1
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  droneLand:
+    clip: {fileID: 8300000, guid: c029ee59bfa18a24c83a9dd6c922be7f, type: 3}
+    channel: 4
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 40
+    endTime: 45
+    randomPitch: 0
+    pitchVariation: 0.05
+  droneLift:
+    clip: {fileID: 8300000, guid: 5898fb8935e70714494d7e41aa0e5391, type: 3}
+    channel: 4
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 4
+    endTime: 8
+    randomPitch: 0
+    pitchVariation: 0.05
+  plantDone:
+    clip: {fileID: 8300000, guid: 4be4c5a9cca968244804772ce07955fe, type: 3}
+    channel: 1
+    loop: 0
+    volume: 1
+    pitch: 1.59
+    startTime: 0
+    endTime: 0
+    randomPitch: 1
+    pitchVariation: 0.05
+  lostSignal:
+    clip: {fileID: 8300000, guid: 50d4355551de1544a8cfb79ea7dbbcd3, type: 3}
+    channel: 0
+    loop: 1
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  wind:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  birds:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  gameplayAmbience:
+    clip: {fileID: 8300000, guid: 1a55f563b63945f4c909c18d9d3ecbd3, type: 3}
+    channel: 2
+    loop: 1
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  menuMusic:
+    clip: {fileID: 8300000, guid: 315be9054ff9d254faff1f79870cf0f0, type: 3}
+    channel: 3
+    loop: 1
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  gameplayMusic:
+    clip: {fileID: 8300000, guid: a0d8c4caac86a194b88e1126e37c21ae, type: 3}
+    channel: 3
+    loop: 1
+    volume: 0.744
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  transitionMusic:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  timerWarning:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  timeout:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  resultScreen:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  countdown:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05
+  countdownFinished:
+    clip: {fileID: 0}
+    channel: 0
+    loop: 0
+    volume: 1
+    pitch: 1
+    startTime: 0
+    endTime: 0
+    randomPitch: 0
+    pitchVariation: 0.05

@@ -67,25 +67,29 @@ public class MapSelector :
             return;
 
         if (currentSelection != null)
+        {
             currentSelection.Deselect();
 
-        currentSelection = level;
+            currentSelection.transform.DOKill();
+            currentSelection.transform.DOScale(1f, 0.15f);
+        }
 
+        currentSelection = level;
         currentSelection.Select();
+
+        currentSelection.transform.DOKill();
+        currentSelection.transform.localScale = Vector3.one;
+
+        currentSelection.transform
+            .DOPunchScale(Vector3.one * 0.15f, 0.3f);
 
         playButton.interactable = true;
 
         playButton.transform.DOKill();
-
         playButton.transform.localScale = Vector3.one;
 
-        playButton.transform.DOKill();
-
-        playButton.transform.localScale =
-            Vector3.one;
-
         playButton.transform
-            .DOScale(1.08f, 0.7f)
+            .DOScale(playButtonScale, 0.7f)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
     }
@@ -101,16 +105,16 @@ public class MapSelector :
 
         playButton.transform.DOKill();
 
-        GameManager.Instance.SetCurrentLevel(
+        GameManager.Instance.ChangeState(
+            GameState.Gameplay,
             currentSelection.Data);
-
-        GameManager.Instance.StartLevel(
-    currentSelection.Data);
     }
 
-    private void ReturnHome()
+    public void ReturnHome()
     {
-        SceneManager.LoadScene(mainMenuScene);
+        Debug.Log("Returning to Main Menu");
+        GameManager.Instance.ChangeState(
+            GameState.MainMenu);
     }
 
     #endregion

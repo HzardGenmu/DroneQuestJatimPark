@@ -8,6 +8,7 @@ public class AltitudeManager : MonoBehaviour
     [SerializeField] private float checkDistance = 25f;
     [SerializeField] private float checkInterval = 0.05f;
 
+    private DroneScanner scanner;
     private float timer;
 
     public CropField CurrentCrop { get; private set; }
@@ -22,6 +23,16 @@ public class AltitudeManager : MonoBehaviour
 
     public AltitudeState CurrentState { get; private set; }
 
+    private void Awake()
+    {
+        scanner = FindAnyObjectByType<DroneScanner>();
+
+        if (scanner == null)
+        {
+            Debug.LogError("No DroneScanner found in the scene!", this);
+        }
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
@@ -33,23 +44,9 @@ public class AltitudeManager : MonoBehaviour
         }
     }
 
-    void CheckCrop()
+    private void CheckCrop()
     {
-        CurrentCrop = null;
-
-        if (!Physics.Raycast(
-            drone.transform.position,
-            Vector3.down,
-            out RaycastHit hit,
-            checkDistance,
-            cropLayer))
-        {
-            CurrentState = AltitudeState.None;
-            return;
-        }
-
-        CurrentCrop =
-            hit.collider.GetComponentInParent<CropField>();
+        CurrentCrop = scanner.CurrentScannedCrop;
 
         if (CurrentCrop == null)
         {
@@ -57,16 +54,17 @@ public class AltitudeManager : MonoBehaviour
             return;
         }
 
-        float target =
-            CurrentCrop.GetOptimalAltitude(
-                sprayer.CurrentSprayType);
+        if ((CropTreatment)sprayer.CurrentSprayType !=
+            CurrentCrop.GetRequiredTreatment())
+        {
+            CurrentState = AltitudeState.None;
+            return;
+        }
 
-        float tolerance =
-            CurrentCrop.GetTolerance(
-                sprayer.CurrentSprayType);
+        float target = CurrentCrop.GetOptimalAltitude();
+        float tolerance = CurrentCrop.GetTolerance();
 
-        float current =
-            drone.CurrentAltitude;
+        float current = drone.CurrentAltitude;
 
         if (current < target - tolerance)
         {
