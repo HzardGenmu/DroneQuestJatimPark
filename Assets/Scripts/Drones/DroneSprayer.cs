@@ -99,20 +99,33 @@ public class DroneSprayer : MonoBehaviour
 
     private void ApplySpray()
     {
+        Debug.Log($"[SPRAY] Applying {currentSprayType} at altitude {drone.CurrentAltitude:F2}");
+
         Collider[] hits =
             Physics.OverlapSphere(
                 sprayOrigin.position,
                 sprayRadius);
 
+        Debug.Log($"[SPRAY] Hit {hits.Length} colliders.");
+
         foreach (Collider hit in hits)
         {
+            Debug.Log($"[SPRAY] Collider: {hit.name}");
+
             CropField crop =
                 hit.GetComponentInParent<CropField>();
 
             if (crop == null)
+            {
+                Debug.Log("[SPRAY] -> No CropField found.");
                 continue;
+            }
 
-            crop.ReceiveTreatment(currentSprayType, drone.CurrentAltitude);
+            Debug.Log($"[SPRAY] -> Found CropField: {crop.name}");
+
+            crop.ReceiveTreatment(
+                currentSprayType,
+                drone.CurrentAltitude);
         }
     }
 
@@ -134,5 +147,16 @@ public class DroneSprayer : MonoBehaviour
                 main.startColor = pesticideColor;
                 break;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (sprayOrigin == null)
+            return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(
+            sprayOrigin.position,
+            sprayRadius);
     }
 }

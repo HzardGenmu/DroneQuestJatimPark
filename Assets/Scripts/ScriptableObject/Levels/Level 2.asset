@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3730aa91356cb0c41a5cba40c4914e9d, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: Level 2
-  sceneName: Level1
+  levelName: Map #2
+  sceneName: Map #2
   description: 'Level 1 2 Electric Boogaloo, There is Nothing here yet
 
 '
