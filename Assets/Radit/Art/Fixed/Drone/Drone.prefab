@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1067141427496010401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5956733162089810311}
+  - component: {fileID: 4892260004055747482}
+  m_Layer: 0
+  m_Name: BottomCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5956733162089810311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067141427496010401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8644174101929254056}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &4892260004055747482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067141427496010401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 0
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 80
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1 &1601593115475145540
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +251,7 @@ GameObject:
   - component: {fileID: 4298287501729127143}
   - component: {fileID: 1941316853167176618}
   - component: {fileID: 880896549247446344}
+  - component: {fileID: 8203739689524666859}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -203,6 +279,7 @@ Transform:
   - {fileID: 5739058550173104318}
   - {fileID: 1744456543326961611}
   - {fileID: 4198314738109827613}
+  - {fileID: 5956733162089810311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3382688694241845436
@@ -355,6 +432,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AltitudeInput
   drone: {fileID: 7825963274963542797}
+  altitudeLevels:
+  - 2
+  - 6
+  - 10
+  - 14
+  - 18
+  - 20
 --- !u!114 &7010403812077355258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +461,6 @@ MonoBehaviour:
   - {fileID: 1744456543326961611}
   sprayRadius: 0.8
   sprayLength: 26
-  sprayParticles: {fileID: 8599873484515884493}
   sprayInterval: 0.2
   battery: {fileID: 4298287501729127143}
   drone: {fileID: 7825963274963542797}
@@ -396,6 +479,7 @@ MonoBehaviour:
   maxBattery: 180
   passiveDrainRate: 1
   sprayDrainRate: 2
+  droneController: {fileID: 7825963274963542797}
   batteryDepletedPanel: {fileID: 0}
   playerInput: {fileID: 3712121500619401874}
 --- !u!114 &1941316853167176618
@@ -438,6 +522,27 @@ MonoBehaviour:
   pesticideCanvas: {fileID: 0}
   animationDuration: 0.25
   hiddenScale: 0.8
+--- !u!114 &8203739689524666859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926684048299478773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbfb2c130d5e2cb49b38030a6074ef07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DroneCamera
+  followCamera: {fileID: 0}
+  bottomCamera: {fileID: 4892260004055747482}
+  orbitalFollow: {fileID: 0}
+  cameraInput: {fileID: 0}
+  crosshair: {fileID: 0}
+  horizontalSensitivity: 0.05
+  verticalSensitivity: 0.05
+  activePriority: 10
+  inactivePriority: 0
 --- !u!1 &7319581431593440909
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,11 +997,6 @@ PrefabInstance:
 --- !u!4 &2968813788496411052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7211328653919574222, guid: c814a27eff9ef59488ad86b92aac8ee1, type: 3}
-  m_PrefabInstance: {fileID: 5557601770217464162}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8599873484515884493 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4213242812528483503, guid: c814a27eff9ef59488ad86b92aac8ee1, type: 3}
   m_PrefabInstance: {fileID: 5557601770217464162}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5976719085706673007

@@ -27,14 +27,8 @@ public class UIButtonSFX :
 
     private void PlayButtonSFX()
     {
-        Debug.Log("Start PlayButtonSFX");
-        Debug.Log(AudioManager.Instance);
-        Debug.Log(AudioManager.Instance.audioLibrary);
-        Debug.Log(AudioManager.Instance.audioLibrary.button);
-        Debug.Log(AudioManager.Instance.GetEntityId());
         if (AudioManager.Instance == null)
         {
-            Debug.Log("AudioManager NULL");
             return;
         }
 
@@ -42,11 +36,9 @@ public class UIButtonSFX :
 
         if (Time.unscaledTime - lastPlayTime < Cooldown)
         {
-            Debug.Log("Cooldown");
             return;
         }
 
-        Debug.Log("Passing cooldown");
         var cue = AudioManager.Instance.audioLibrary.button;
 
         Debug.Log(cue);
@@ -57,6 +49,5 @@ public class UIButtonSFX :
 
         AudioManager.Instance.Play(AudioManager.Instance.audioLibrary.button);
 
-        Debug.Log("Finished");
     }
 }

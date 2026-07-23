@@ -41,7 +41,6 @@ public class PauseMenu : MonoBehaviour
 
         AudioManager.Instance.Play(
             AudioManager.Instance.audioLibrary.button);
-        Debug.Log(AudioManager.Instance.GetEntityId());
         pausePanel.SetActive(false);
         AudioManager.Instance.SetUIVolume(1f);
     }
@@ -50,6 +49,8 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        GameManager.Instance.ChangeState(GameState.MainMenu);
+        AudioManager.Instance.StopGameplayAudio();
+
+        GameManager.Instance.ChangeState(GameState.MapSelect);
     }
 }

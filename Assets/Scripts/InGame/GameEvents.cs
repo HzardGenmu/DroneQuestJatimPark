@@ -10,7 +10,7 @@ public static class GameEvents
     // Plants
     public static System.Action OnPlantTreating;
     public static System.Action OnPlantCompleted;
-
+    public static System.Action OnEveryPlantFinished;
     // Economy
     public static System.Action OnMoneyEarned;
     public static System.Action OnMoneySpent;

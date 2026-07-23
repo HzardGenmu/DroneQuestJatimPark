@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public enum GameState
 {
     MainMenu,
+    MapSelect,
     Gameplay,
     Summary,
     Transition
@@ -37,6 +38,18 @@ public class GameManager : MonoBehaviour
         GameState state,
         LevelData level = null)
     {
+        CurrentLevel = level;
+
+        AudioManager.Instance.StopChannel(AudioChannel.SFX);
+        AudioManager.Instance.StopChannel(AudioChannel.Ambience);
+
+        // Stop gameplay-only audio BEFORE notifying listeners.
+        if (state == GameState.MainMenu ||
+            state == GameState.MapSelect)
+        {
+            AudioManager.Instance.StopGameplayAudio();
+        }
+
         if (CurrentState != state)
         {
             CurrentState = state;
@@ -46,25 +59,26 @@ public class GameManager : MonoBehaviour
             OnGameStateChanged?.Invoke(state);
         }
 
-        CurrentLevel = level;
-        // Stop any gameplay audio before switching scenes.
-        AudioManager.Instance.StopChannel(AudioChannel.SFX);
-        AudioManager.Instance.StopChannel(AudioChannel.Ambience);
-
         switch (state)
         {
             case GameState.Gameplay:
 
                 if (level != null)
                     SceneManager.LoadScene(level.sceneName);
-                AudioManager.Instance.SetUIVolume(1f);
+
                 break;
 
             case GameState.MainMenu:
 
                 AudioManager.Instance.StopGameplayAudio();
-
                 SceneManager.LoadScene("MainMenu");
+
+                break;
+
+            case GameState.MapSelect:
+
+                AudioManager.Instance.StopGameplayAudio();
+                SceneManager.LoadScene("MapSelector");
 
                 break;
 
@@ -80,5 +94,8 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+
+        CurrentState = state;
+        OnGameStateChanged?.Invoke(state);
     }
 }

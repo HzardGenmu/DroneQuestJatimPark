@@ -22,6 +22,7 @@ public class AltitudeManager : MonoBehaviour
     }
 
     public AltitudeState CurrentState { get; private set; }
+    public AltitudeState SelectedState { get; private set; }
 
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class AltitudeManager : MonoBehaviour
         if (CurrentCrop == null)
         {
             CurrentState = AltitudeState.None;
+            SelectedState = AltitudeState.None;
             return;
         }
 
@@ -58,25 +60,31 @@ public class AltitudeManager : MonoBehaviour
             CurrentCrop.GetRequiredTreatment())
         {
             CurrentState = AltitudeState.None;
+            SelectedState = AltitudeState.None;
             return;
         }
 
         float target = CurrentCrop.GetOptimalAltitude();
         float tolerance = CurrentCrop.GetTolerance();
 
-        float current = drone.CurrentAltitude;
+        CurrentState =
+            GetState(drone.CurrentAltitude, target, tolerance);
 
-        if (current < target - tolerance)
-        {
-            CurrentState = AltitudeState.TooLow;
-        }
-        else if (current > target + tolerance)
-        {
-            CurrentState = AltitudeState.TooHigh;
-        }
-        else
-        {
-            CurrentState = AltitudeState.Correct;
-        }
+        SelectedState =
+            GetState(drone.TargetAltitude, target, tolerance);
+    }
+
+    private AltitudeState GetState(
+    float altitude,
+    float target,
+    float tolerance)
+    {
+        if (altitude < target - tolerance)
+            return AltitudeState.TooLow;
+
+        if (altitude > target + tolerance)
+            return AltitudeState.TooHigh;
+
+        return AltitudeState.Correct;
     }
 }

@@ -108,6 +108,7 @@ public class MapSelector :
         GameManager.Instance.ChangeState(
             GameState.Gameplay,
             currentSelection.Data);
+        CropField.ResetAltitudes();
     }
 
     public void ReturnHome()

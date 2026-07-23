@@ -21,6 +21,11 @@ public class CropField : MonoBehaviour
     private Outline outline;
     private bool scanned;
 
+    private static bool altitudesInitialized;
+
+    private static float waterAltitude;
+    private static float fertilizerAltitude;
+    private static float pesticideAltitude;
     public bool IsCompleted => !requirement.Needed;
 
     private void Awake()
@@ -33,7 +38,38 @@ public class CropField : MonoBehaviour
         requiredTreatment = (CropTreatment)Random.Range(0, 3);
 
         requirement.Needed = true;
-        requirement.OptimalAltitude = Random.Range(2f, 20f);
+
+        // Original logic.
+        // requirement.OptimalAltitude = Random.Range(2f, 20f);
+
+        // Generate one random altitude per treatment type.
+        if (!altitudesInitialized)
+        {
+            waterAltitude = Random.Range(2f, 20f);
+            fertilizerAltitude = Random.Range(2f, 20f);
+            pesticideAltitude = Random.Range(2f, 20f);
+
+            altitudesInitialized = true;
+
+            Debug.Log($"Water Altitude: {waterAltitude:F1}");
+            Debug.Log($"Fertilizer Altitude: {fertilizerAltitude:F1}");
+            Debug.Log($"Pesticide Altitude: {pesticideAltitude:F1}");
+        }
+
+        switch (requiredTreatment)
+        {
+            case CropTreatment.Water:
+                requirement.OptimalAltitude = waterAltitude;
+                break;
+
+            case CropTreatment.Fertilizer:
+                requirement.OptimalAltitude = fertilizerAltitude;
+                break;
+
+            case CropTreatment.Pesticide:
+                requirement.OptimalAltitude = pesticideAltitude;
+                break;
+        }
 
         // Ensure all models stay active so Outline caches every renderer.
         if (healthyModel != null)
@@ -161,31 +197,20 @@ public class CropField : MonoBehaviour
 
     public void ReceiveTreatment(SprayType spray, float altitude)
     {
-        Debug.Log($"[{name}] ReceiveTreatment called.");
-        Debug.Log($"[{name}] Required: {requiredTreatment}");
-        Debug.Log($"[{name}] Spray: {spray}");
-
         if (!requirement.Needed)
         {
-            Debug.Log($"[{name}] Already completed.");
             return;
         }
 
         if ((CropTreatment)spray != requiredTreatment)
         {
-            Debug.Log($"[{name}] Wrong treatment type.");
             return;
         }
 
         if (!IsAltitudeCorrect(altitude))
         {
-            Debug.Log($"[{name}] Incorrect altitude.");
-            Debug.Log($"Optimal: {requirement.OptimalAltitude:F2}");
-            Debug.Log($"Current: {altitude:F2}");
             return;
         }
-
-        Debug.Log($"[{name}] Treatment SUCCESS!");
 
         requirement.Needed = false;
 
@@ -194,5 +219,10 @@ public class CropField : MonoBehaviour
         GameEvents.OnPlantCompleted?.Invoke();
 
         MissionManager.Instance.NotifyCropCompleted(this);
+    }
+
+    public static void ResetAltitudes()
+    {
+        altitudesInitialized = false;
     }
 }

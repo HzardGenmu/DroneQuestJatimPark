@@ -276,6 +276,10 @@ public class AudioManager : MonoBehaviour
 
                 ambienceSource.Stop();
                 break;
+            case AudioChannel.Drone:
+
+                droneSource.Stop();
+                break;
 
             default:
 
@@ -416,6 +420,6 @@ public class AudioManager : MonoBehaviour
     {
         StopChannel(AudioChannel.SFX);
         StopChannel(AudioChannel.Ambience);
-        StopChannel(AudioChannel.Music);
+        StopChannel(AudioChannel.Drone);
     }
 }

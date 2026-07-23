@@ -11,6 +11,7 @@ public class LevelCompleteManager : MonoBehaviour
     [SerializeField] private string mapScene = "MapSelector";
 
     [SerializeField] private CongratulationsPanel congratulationsPanel;
+
     public void CompleteLevel()
     {
         int stars = CalculateStars();

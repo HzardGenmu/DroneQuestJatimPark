@@ -25,6 +25,8 @@ public class GameplayAudio : MonoBehaviour
         GameEvents.OnDroneTakeoff += DroneTakeoff;
 
         GameEvents.OnBatteryDepleted += StopDroneAudio;
+
+        GameManager.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void OnDisable()
@@ -37,7 +39,15 @@ public class GameplayAudio : MonoBehaviour
         GameEvents.OnDroneLanding -= DroneLanding;
         GameEvents.OnDroneTakeoff -= DroneTakeoff;
 
-        GameEvents.OnBatteryDepleted += StopDroneAudio;
+        GameEvents.OnBatteryDepleted -= StopDroneAudio;
+
+        GameManager.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    private void HandleGameStateChanged(GameState state)
+    {
+        if (!enabled)
+            StopDroneAudio();
     }
 
     private void PlayPlantComplete()
@@ -111,5 +121,10 @@ public class GameplayAudio : MonoBehaviour
             AudioManager.Instance.Stop(droneHandle);
             droneHandle = null;
         }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

@@ -40,11 +40,13 @@ public class MissionManager : MonoBehaviour
 
         UpdateObjectiveUI();
 
+        Debug.Log($"Crop completed: {crop.name} ({crop.GetEntityId()}) - Progress: {completedFields}/{totalFields}");
         if (completedFields >= totalFields)
         {
             missionCompleted = true;
-
+            Debug.Log("All crops completed! Mission complete.");
             levelCompleteManager.CompleteLevel();
+            Debug.Log("Level complete UI triggered.");
         }
     }
 

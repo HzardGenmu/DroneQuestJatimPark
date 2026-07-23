@@ -10,6 +10,9 @@ public class DroneBattery : MonoBehaviour
 
     [SerializeField] private float sprayDrainRate = 2f;
 
+    [Header("Drone")]
+    [SerializeField] private DroneController droneController;
+
     [Header("UI")]
     [SerializeField] private GameObject batteryDepletedPanel;
 
@@ -36,6 +39,10 @@ public class DroneBattery : MonoBehaviour
         if (batteryDepleted)
             return;
 
+        // Don't drain battery unless the drone is flying.
+        if (droneController.CurrentState != DroneController.DroneState.Flying)
+            return;
+
         float drain = passiveDrainRate;
 
         if (isSpraying)
@@ -43,7 +50,7 @@ public class DroneBattery : MonoBehaviour
 
         currentBattery -= drain * Time.deltaTime;
 
-        if (currentBattery <= 0)
+        if (currentBattery <= 0f)
         {
             BatteryDepleted();
         }

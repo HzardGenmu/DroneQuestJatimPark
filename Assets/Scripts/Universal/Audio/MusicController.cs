@@ -4,6 +4,8 @@ public class MusicController : MonoBehaviour
 {
     private AudioHandle musicHandle;
     private AudioHandle ambienceHandle;
+    private AudioCue currentMusic;
+    private AudioCue currentAmbience;
 
     private void OnEnable()
     {
@@ -22,45 +24,67 @@ public class MusicController : MonoBehaviour
 
     private void SwitchMusic(GameState state)
     {
-        AudioManager.Instance.Stop(musicHandle);
-        musicHandle = null;
-
-        AudioManager.Instance.Stop(ambienceHandle);
-        ambienceHandle = null;
+        AudioCue targetMusic = null;
+        AudioCue targetAmbience = null;
 
         switch (state)
         {
             case GameState.MainMenu:
-
-                musicHandle =
-                    AudioManager.Instance.Play(
-                        AudioManager.Instance.audioLibrary.menuMusic);
-
+            case GameState.MapSelect:
+                targetMusic =
+                    AudioManager.Instance.audioLibrary.menuMusic;
                 break;
 
             case GameState.Gameplay:
+                targetMusic =
+                    AudioManager.Instance.audioLibrary.gameplayMusic;
 
-                musicHandle =
-                    AudioManager.Instance.Play(
-                        AudioManager.Instance.audioLibrary.gameplayMusic);
-
-                ambienceHandle =
-                    AudioManager.Instance.Play(
-                        AudioManager.Instance.audioLibrary.gameplayAmbience);
-
+                targetAmbience =
+                    AudioManager.Instance.audioLibrary.gameplayAmbience;
                 break;
 
             case GameState.Transition:
+                targetMusic =
+                    AudioManager.Instance.audioLibrary.transitionMusic;
+                break;
+        }
 
+        //
+        // Music
+        //
+
+        if (targetMusic != currentMusic)
+        {
+            AudioManager.Instance.Stop(musicHandle);
+
+            musicHandle = null;
+
+            currentMusic = targetMusic;
+
+            if (currentMusic != null)
+            {
                 musicHandle =
-                    AudioManager.Instance.Play(
-                        AudioManager.Instance.audioLibrary.transitionMusic);
+                    AudioManager.Instance.Play(currentMusic);
+            }
+        }
 
-                break;
+        //
+        // Ambience
+        //
 
-            case GameState.Summary:
+        if (targetAmbience != currentAmbience)
+        {
+            AudioManager.Instance.Stop(ambienceHandle);
 
-                break;
+            ambienceHandle = null;
+
+            currentAmbience = targetAmbience;
+
+            if (currentAmbience != null)
+            {
+                ambienceHandle =
+                    AudioManager.Instance.Play(currentAmbience);
+            }
         }
     }
 }

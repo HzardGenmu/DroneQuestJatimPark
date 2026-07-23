@@ -39,12 +39,15 @@ public class DroneController : MonoBehaviour
     public float CurrentAltitude => transform.position.y;
     public float MinAltitude => minAltitude;
     public float MaxAltitude => maxAltitude;
+    public float TargetAltitude => targetAltitude;
 
     public DroneState CurrentState { get; private set; }
 
     private Rigidbody rb;
 
     private Vector2 moveInput;
+    private Vector2 lookInput;
+    public Vector2 LookInput => lookInput;
 
     private float targetAltitude;
 
@@ -293,5 +296,10 @@ public class DroneController : MonoBehaviour
                 currentPitch,
                 0f,
                 currentRoll);
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
     }
 }
