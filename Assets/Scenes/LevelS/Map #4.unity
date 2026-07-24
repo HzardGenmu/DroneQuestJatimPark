@@ -4835,6 +4835,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 358365638}
+    - target: {fileID: 1174496322074584805, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2158723224114347682, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
