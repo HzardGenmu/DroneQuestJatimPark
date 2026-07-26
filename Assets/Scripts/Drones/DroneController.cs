@@ -32,6 +32,9 @@ public class DroneController : MonoBehaviour
     [SerializeField] private float tiltSmoothness = 5f;
     [SerializeField] private Transform droneBody;
 
+    [Header("Joystick")]
+    [SerializeField] private FloatingJoystick joystick;
+
     public bool IsLandingAvailable => CanLand();
     public bool IsBusy =>
     CurrentState == DroneState.TakingOff ||
@@ -114,9 +117,16 @@ public class DroneController : MonoBehaviour
 
     private void HandleMovement()
     {
+        Vector2 input = moveInput;
+
+        if (joystick != null && joystick.IsDragging)
+        {
+            input = joystick.Input;
+        }
+
         Vector3 horizontalVelocity =
-            transform.forward * moveInput.y +
-            transform.right * moveInput.x;
+            transform.forward * input.y +
+            transform.right * input.x;
 
         horizontalVelocity *= moveSpeed;
 
@@ -273,11 +283,18 @@ public class DroneController : MonoBehaviour
 
     private void HandleVisualTilt()
     {
+        Vector2 input = moveInput;
+
+        if (joystick != null && joystick.IsDragging)
+        {
+            input = joystick.Input;
+        }
+
         float targetPitch =
-            moveInput.y * maxTiltAngle;
+            input.y * maxTiltAngle;
 
         float targetRoll =
-            -moveInput.x * maxTiltAngle;
+            -input.x * maxTiltAngle;
 
         currentPitch =
             Mathf.Lerp(

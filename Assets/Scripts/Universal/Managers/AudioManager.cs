@@ -27,17 +27,9 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float uiVolume = 1f;
 
-    [Range(0f, 1f)]
-    [SerializeField] private float droneVolume = 1f;
-
-    [Range(0f, 1f)]
-    [SerializeField] private float ambienceVolume = 1f;
-
     private const string MusicVolumeKey = "MusicVolume";
     private const string SFXVolumeKey = "SFXVolume";
-    private const string DroneVolumeKey = "DroneVolume";
     private const string UIVolumeKey = "UIVolume";
-    private const string AmbienceVolumeKey = "AmbienceVolume";
 
     private Coroutine musicFadeRoutine;
 
@@ -72,23 +64,11 @@ public class AudioManager : MonoBehaviour
             PlayerPrefs.GetFloat(
                 UIVolumeKey,
                 1f);
-        
-        ambienceVolume =
-            PlayerPrefs.GetFloat(
-                AmbienceVolumeKey,
-                1f);
-        
-        droneVolume =
-            PlayerPrefs.GetFloat(
-                DroneVolumeKey,
-                1f);
 
         RefreshVolumes();
         Debug.Log($"Music {musicVolume}");
         Debug.Log($"SFX {sfxVolume}");
         Debug.Log($"UI {uiVolume}");
-        Debug.Log($"Ambience {ambienceVolume}");
-        Debug.Log($"Drone {droneVolume}");
     }
 
     public AudioHandle Play(AudioClip clip)
@@ -190,13 +170,10 @@ public class AudioManager : MonoBehaviour
                 return musicVolume;
 
             case AudioChannel.UI:
-                return uiVolume;
-
-            case AudioChannel.Ambience:
-                return ambienceVolume;
-            
+            case AudioChannel.SFX:
             case AudioChannel.Drone:
-                return droneVolume;
+            case AudioChannel.Ambience:
+                return sfxVolume;
 
             default:
                 return sfxVolume;
@@ -206,16 +183,16 @@ public class AudioManager : MonoBehaviour
     private void RefreshVolumes()
     {
         musicSource.volume = musicVolume;
-        //uiSource.volume = uiVolume;
-        ambienceSource.volume = ambienceVolume;
-        droneSource.volume = droneVolume;
+
+        ambienceSource.volume = sfxVolume;
+
+        droneSource.volume = sfxVolume;
 
         foreach (AudioSource source in sfxPool)
         {
             if (source != null)
                 source.volume = sfxVolume;
         }
-        Debug.Log(AudioManager.Instance.audioLibrary.button.channel);
     }
 
     private IEnumerator StopAfter(
@@ -376,43 +353,6 @@ public class AudioManager : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        RefreshVolumes();
-    }
-    
-    public void SetDroneVolume(float volume)
-    {
-        droneVolume = Mathf.Clamp01(volume);
-
-        PlayerPrefs.SetFloat(
-            DroneVolumeKey,
-            droneVolume);
-
-        PlayerPrefs.Save();
-
-        RefreshVolumes();
-    }
-
-    public void SetUIVolume(float volume)
-    {
-        Debug.Log($"SetUIVolume called: {volume}");
-        Debug.Log(System.Environment.StackTrace);
-
-        uiVolume = Mathf.Clamp01(volume);
-
-        PlayerPrefs.SetFloat(UIVolumeKey, uiVolume);
-
-        PlayerPrefs.Save();
-
-        RefreshVolumes();
-    }
-
-    public void SetAmbienceVolume(float volume)
-    {
-        ambienceVolume = Mathf.Clamp01(volume);
-        PlayerPrefs.SetFloat(
-            AmbienceVolumeKey,
-            ambienceVolume);
-        PlayerPrefs.Save();
         RefreshVolumes();
     }
 

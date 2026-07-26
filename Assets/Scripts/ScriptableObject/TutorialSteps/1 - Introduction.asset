@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
+  m_Name: 1 - Introduction
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
+  description: Ini Drone yang kamu kendalikan.
+  focusItems:
+  - targetID: Drone
+    autoSize: 0
+    highlightSize: {x: 600, y: 400}
+    highlightOffset: {x: -30, y: 200}
+    padding: 0
+    showArrow: 0
+    arrowDirection: 0
+    arrowOffset: {x: 0, y: 0}
+    pulse: 0
+  triggerType: 4
+  pauseGame: 1
+  panelAnchor: 1
+  panelOffset: {x: 0, y: 360}
+  showInputPrompt: 1
+  inputActionName: Submit
+  autoFlipPanel: 1
+  image: {fileID: 0}
+  showButtons: 1
+  button1Text: Continue
+  button2Text: Skip
+  onButton1:
+    m_PersistentCalls:
+      m_Calls: []
+  onButton2:
+    m_PersistentCalls:
+      m_Calls: []

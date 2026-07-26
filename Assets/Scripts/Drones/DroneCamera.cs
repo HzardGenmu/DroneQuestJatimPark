@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using Unity.Cinemachine;
 
 public class DroneCamera : MonoBehaviour
@@ -6,6 +7,7 @@ public class DroneCamera : MonoBehaviour
     [Header("Cameras")]
     [SerializeField] private CinemachineCamera followCamera;
     [SerializeField] private CinemachineCamera bottomCamera;
+    [SerializeField] private CinemachineBrain brain;
 
     [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
     [SerializeField] private DroneCameraInput cameraInput;
@@ -20,8 +22,15 @@ public class DroneCamera : MonoBehaviour
     [SerializeField] private int inactivePriority = 0;
 
     private bool usingBottomCamera;
+    private bool tutorialCameraTriggered;
 
     public bool IsBottomCameraActive => usingBottomCamera;
+
+    private void Awake()
+    {
+        if (brain == null)
+            brain = Camera.main.GetComponent<CinemachineBrain>();
+    }
 
     private void Start()
     {
@@ -62,6 +71,23 @@ public class DroneCamera : MonoBehaviour
             ShowFollowCamera();
         else
             ShowBottomCamera();
+
+        if (!tutorialCameraTriggered)
+            StartCoroutine(WaitForBlend());
+    }
+
+    private IEnumerator WaitForBlend()
+    {
+        // Wait until a blend starts
+        while (!brain.IsBlending)
+            yield return null;
+
+        // Wait until it finishes
+        while (brain.IsBlending)
+            yield return null;
+
+        tutorialCameraTriggered = true;
+        GameEvents.OnCameraModeChanged?.Invoke();
     }
 
     public void ShowBottomCamera()
