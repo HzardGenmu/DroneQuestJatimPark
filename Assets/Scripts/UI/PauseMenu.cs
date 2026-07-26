@@ -42,7 +42,6 @@ public class PauseMenu : MonoBehaviour
         AudioManager.Instance.Play(
             AudioManager.Instance.audioLibrary.button);
         pausePanel.SetActive(false);
-        AudioManager.Instance.SetUIVolume(1f);
     }
 
     public void GoToMainMenu()

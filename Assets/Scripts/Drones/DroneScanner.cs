@@ -51,7 +51,11 @@ public class DroneScanner : MonoBehaviour
                 previousCrop.SetScanned(false);
 
             if (bestCrop != null)
+            {
                 bestCrop.SetScanned(true);
+
+                GameEvents.OnPlantScanned?.Invoke(bestCrop);
+            }
 
             previousCrop = bestCrop;
         }
