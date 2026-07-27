@@ -41,6 +41,9 @@ public class TutorialStep : ScriptableObject
 
     public Vector2 panelOffset;
 
+    [Header("Objects")]
+    public List<GameObject> activateWhileActive = new();
+
     [Header("Input Prompt")]
     public bool showInputPrompt = true;
 

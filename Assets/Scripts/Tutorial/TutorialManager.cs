@@ -21,6 +21,8 @@ public class TutorialManager : MonoBehaviour
     private bool isTransitioningStep = false;
     private CropField firstScannedPlant;
     private CropField firstTreatedPlant;
+    private TutorialStep previousStep;
+
     private bool tutorialActive => isRunning && currentStepIndex >= 0 && currentStepIndex < steps.Count;
 
     public TutorialStep CurrentStep =>
@@ -84,6 +86,17 @@ public class TutorialManager : MonoBehaviour
     {
         isRunning = false;
 
+        if (previousStep != null)
+        {
+            foreach (GameObject obj in previousStep.activateWhileActive)
+            {
+                if (obj != null)
+                    obj.SetActive(false);
+            }
+
+            previousStep = null;
+        }
+
         if (tutorialPausedGame)
         {
             Resume();
@@ -132,6 +145,24 @@ public class TutorialManager : MonoBehaviour
 
     void ShowStep(TutorialStep step)
     {
+        if (previousStep != null)
+        {
+            foreach (GameObject obj in previousStep.activateWhileActive)
+            {
+                if (obj != null)
+                    obj.SetActive(false);
+            }
+        }
+
+        // Enable current step objects
+        foreach (GameObject obj in step.activateWhileActive)
+        {
+            if (obj != null)
+                obj.SetActive(true);
+        }
+
+        previousStep = step;
+
         if (step.pauseGame)
         {
             if (!tutorialPausedGame)
