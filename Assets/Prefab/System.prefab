@@ -219,7 +219,9 @@ MonoBehaviour:
   panel: {fileID: 0}
   contentRoot: {fileID: 0}
   descriptionText: {fileID: 0}
+  contentContainer: {fileID: 0}
   darkOverlay: {fileID: 0}
+  panelGraphic: {fileID: 0}
   spotlightOverlay: {fileID: 7402832584032669325}
 --- !u!114 &7402832584032669325
 MonoBehaviour:
@@ -251,6 +253,7 @@ GameObject:
   - component: {fileID: 6142959727884215507}
   - component: {fileID: 5673019079695978555}
   - component: {fileID: 2140431332947025581}
+  - component: {fileID: 6665565747781011834}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -286,6 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pausePanel: {fileID: 0}
+  quitPanel: {fileID: 0}
+  settingsMenu: {fileID: 5673019079695978555}
 --- !u!114 &7613960543064683332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,8 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelCompleteManager
   levelIndex: 1
   battery: {fileID: 0}
-  mapScene: MapSelector
-  congratulationsPanel: {fileID: 0}
+  resultPanel: {fileID: 0}
 --- !u!114 &6142959727884215507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fec2d3af067dbe43a28c198c8e270ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissionManager
-  objectiveUI: {fileID: 0}
+  objectiveUI: {fileID: 6665565747781011834}
   levelCompleteManager: {fileID: 7735209341303101973}
 --- !u!114 &5673019079695978555
 MonoBehaviour:
@@ -387,3 +391,23 @@ MonoBehaviour:
   fertilizerRing: {fileID: 0}
   pesticideRing: {fileID: 0}
   needTutorial: 1
+--- !u!114 &6665565747781011834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0190171a0038cb448ed97e111bce5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionObjectiveUI
+  objectivePanel: {fileID: 0}
+  notificationBadge: {fileID: 0}
+  waterSlider: {fileID: 0}
+  waterText: {fileID: 0}
+  fertilizerSlider: {fileID: 0}
+  fertilizerText: {fileID: 0}
+  pesticideSlider: {fileID: 0}
+  pesticideText: {fileID: 0}

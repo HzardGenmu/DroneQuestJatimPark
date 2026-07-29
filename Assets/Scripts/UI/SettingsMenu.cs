@@ -13,18 +13,10 @@ public class SettingsMenu : MonoBehaviour
     {
         panel.SetActive(false);
 
-        bgmSlider.value =
-            PlayerPrefs.GetFloat(
-                "MusicVolume",
-                1f);
-
-        sfxSlider.value =
-            PlayerPrefs.GetFloat(
-                "SFXVolume",
-                1f);
+        bgmSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
         bgmSlider.onValueChanged.AddListener(SetMusic);
-
         sfxSlider.onValueChanged.AddListener(SetSFX);
     }
 
@@ -46,5 +38,14 @@ public class SettingsMenu : MonoBehaviour
     public void Close()
     {
         panel.SetActive(false);
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        AudioManager.Instance.StopGameplayAudio();
+
+        GameManager.Instance.ChangeState(GameState.MapSelect);
     }
 }

@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TutorialUI : MonoBehaviour
@@ -18,9 +19,13 @@ public class TutorialUI : MonoBehaviour
     public RectTransform contentRoot;
 
     public TMP_Text descriptionText;
+    [SerializeField] private RectTransform contentContainer;
 
     [Header("Overlay")]
     public GameObject darkOverlay;
+
+    [Header("Panel")]
+    [SerializeField] private RectTransform panelGraphic;
 
     [SerializeField]
     private TutorialSpotlightOverlay spotlightOverlay;
@@ -54,10 +59,12 @@ public class TutorialUI : MonoBehaviour
     public void Show(TutorialStep step)
     {
         ClearElevatedUI();
+
         panel.SetActive(true);
 
-        descriptionText.text =
-            step.description;
+        FlipPanel(step.flipPanel);
+
+        descriptionText.text = step.description;
 
         PositionPanel(step);
 
@@ -185,16 +192,6 @@ public class TutorialUI : MonoBehaviour
                         position =
                             targetPosition;
                         break;
-                }
-
-                if (step.autoFlipPanel)
-                {
-                    position =
-                        AutoFlipPosition(
-                            step.panelAnchor,
-                            targetPosition,
-                            spacing
-                        );
                 }
             }
         }
@@ -505,5 +502,16 @@ public class TutorialUI : MonoBehaviour
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1000;
     }
+    private void FlipPanel(bool flip)
+    {
+        // Flip panel
+        Vector3 panelScale = panelGraphic.localScale;
+        panelScale.x = Mathf.Abs(panelScale.x) * (flip ? -1 : 1);
+        panelGraphic.localScale = panelScale;
 
+        // Flip content back
+        Vector3 contentScale = contentContainer.localScale;
+        contentScale.x = Mathf.Abs(contentScale.x) * (flip ? -1 : 1);
+        contentContainer.localScale = contentScale;
+    }
 }

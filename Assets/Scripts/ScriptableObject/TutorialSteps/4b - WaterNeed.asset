@@ -15,15 +15,6 @@ MonoBehaviour:
   description: Setiap tanaman memerlukan kebutuhan berbeda. Kebutuhan dilihat dari
     warna outlinenye. Biru artinya Air.
   focusItems:
-  - targetID: PlantFirstScanned
-    autoSize: 0
-    highlightSize: {x: 400, y: 400}
-    highlightOffset: {x: 0, y: 0}
-    padding: 0
-    showArrow: 0
-    arrowDirection: 0
-    arrowOffset: {x: 0, y: 0}
-    pulse: 0
   - targetID: WaterButton
     autoSize: 1
     highlightSize: {x: 200, y: 200}
@@ -33,13 +24,24 @@ MonoBehaviour:
     arrowDirection: 0
     arrowOffset: {x: 0, y: 0}
     pulse: 0
+  - targetID: PlantFirstScanned
+    autoSize: 0
+    highlightSize: {x: 400, y: 400}
+    highlightOffset: {x: 0, y: 0}
+    padding: 0
+    showArrow: 0
+    arrowDirection: 0
+    arrowOffset: {x: 0, y: 0}
+    pulse: 0
   triggerType: 4
   pauseGame: 1
-  panelAnchor: 1
-  panelOffset: {x: -500, y: -50}
+  panelAnchor: 2
+  panelOffset: {x: -250, y: 0}
+  activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit
   autoFlipPanel: 1
+  flipPanel: 0
   image: {fileID: 0}
   showButtons: 1
   button1Text: Continue

@@ -1,167 +1,102 @@
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class MissionObjectiveUI : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private RectTransform objectivePanel;
-    [SerializeField] private TMP_Text objectiveText;
+    [Header("Panel")]
+    [SerializeField] private GameObject objectivePanel;
 
-    //[SerializeField] private Image glowImage;
     [SerializeField] private Image notificationBadge;
 
-    [Header("Animation")]
-    [SerializeField] private float panelDuration = 0.35f;
-    [SerializeField] private float autoCollapseDelay = 6f;
+    [Header("Water")]
+    [SerializeField] private Slider waterSlider;
+    [SerializeField] private TMP_Text waterText;
 
-    [Header("Typewriter")]
-    [SerializeField] private float textDuration = 0.8f;
+    [Header("Fertilizer")]
+    [SerializeField] private Slider fertilizerSlider;
+    [SerializeField] private TMP_Text fertilizerText;
 
-    private Sequence sequence;
-    private Tween glowTween;
-    private Tween autoCollapseTween;
+    [Header("Pesticide")]
+    [SerializeField] private Slider pesticideSlider;
+    [SerializeField] private TMP_Text pesticideText;
 
     private bool expanded;
-    private string currentObjective;
 
     private void Awake()
     {
-        objectivePanel.localScale = new Vector3(0f, 1f, 1f);
+        objectivePanel.SetActive(false);
 
-        Color c = objectiveText.color;
-        c.a = 0f;
-        objectiveText.color = c;
-
-        objectiveText.text = "";
-
-        // Grab the objective from the selected level
-        if (GameManager.Instance != null &&
-            GameManager.Instance.CurrentLevel != null)
-        {
-            currentObjective =
-                GameManager.Instance.CurrentLevel.objective;
-        }
-        else
-        {
-            currentObjective = "No objective assigned.";
-        }
-
-        //StartGlow();
+        if (notificationBadge != null)
+            notificationBadge.gameObject.SetActive(false);
     }
 
     public void Toggle()
     {
-        Debug.Log("Toggle!");
-
         if (expanded)
-            Collapse();
+            Close();
         else
-            Expand();
+            Open();
     }
 
-    private void Expand()
+    public void Open()
     {
         expanded = true;
 
-        sequence?.Kill();
-        autoCollapseTween?.Kill();
-
-        //StopGlow();
+        objectivePanel.SetActive(true);
 
         if (notificationBadge != null)
             notificationBadge.gameObject.SetActive(false);
-
-        objectiveText.text = "";
-
-        sequence = DOTween.Sequence();
-
-        sequence.Append(
-            objectivePanel
-                .DOScaleX(1f, panelDuration)
-                .SetEase(Ease.OutBack));
-
-        sequence.AppendCallback(() =>
-        {
-            Color c = objectiveText.color;
-            c.a = 1f;
-            objectiveText.color = c;
-        });
-
-        sequence.AppendCallback(() =>
-        {
-            StartCoroutine(TypeWriter());
-        });
-
-        autoCollapseTween =
-            DOVirtual.DelayedCall(
-                autoCollapseDelay,
-                Collapse);
     }
 
-    private void Collapse()
+    public void Close()
     {
         expanded = false;
 
-        sequence?.Kill();
-        autoCollapseTween?.Kill();
-
-        sequence = DOTween.Sequence();
-
-        sequence.Append(
-            objectiveText
-                .DOFade(0f, 0.15f));
-
-        sequence.Append(
-            objectivePanel
-                .DOScaleX(0f, panelDuration)
-                .SetEase(Ease.InBack));
-
-        sequence.AppendCallback(() =>
-        {
-            objectiveText.text = "";
-
-            Color c = objectiveText.color;
-            c.a = 1f;
-            objectiveText.color = c;
-
-            //StartGlow();
-        });
-    }
-
-    public void SetObjective(string objective)
-    {
-        currentObjective = objective;
+        objectivePanel.SetActive(false);
     }
 
     public void ShowNotification()
     {
-        if (notificationBadge != null)
+        if (!expanded && notificationBadge != null)
             notificationBadge.gameObject.SetActive(true);
     }
 
-    private void OnDestroy()
+    public void UpdateTreatmentProgress(
+        CropTreatment treatment,
+        int completed,
+        int total)
     {
-        sequence?.Kill();
-        glowTween?.Kill();
-        autoCollapseTween?.Kill();
-    }
+        Slider slider = null;
+        TMP_Text label = null;
 
-    private IEnumerator TypeWriter()
-    {
-        objectiveText.text = currentObjective;
-        objectiveText.maxVisibleCharacters = 0;
-
-        while (objectiveText.maxVisibleCharacters <
-               currentObjective.Length)
+        switch (treatment)
         {
-            objectiveText.maxVisibleCharacters++;
+            case CropTreatment.Water:
+                slider = waterSlider;
+                label = waterText;
+                break;
 
-            yield return new WaitForSeconds(
-                textDuration /
-                currentObjective.Length);
+            case CropTreatment.Fertilizer:
+                slider = fertilizerSlider;
+                label = fertilizerText;
+                break;
+
+            case CropTreatment.Pesticide:
+                slider = pesticideSlider;
+                label = pesticideText;
+                break;
+        }
+
+        if (slider != null)
+        {
+            slider.maxValue = Mathf.Max(total, 1);
+            slider.value = completed;
+        }
+
+        if (label != null)
+        {
+            label.text = $"{completed}/{total}";
         }
     }
 }

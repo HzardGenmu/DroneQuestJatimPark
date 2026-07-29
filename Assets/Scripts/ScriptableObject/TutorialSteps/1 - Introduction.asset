@@ -26,10 +26,12 @@ MonoBehaviour:
   triggerType: 4
   pauseGame: 1
   panelAnchor: 1
-  panelOffset: {x: 0, y: 360}
+  panelOffset: {x: -470, y: 450}
+  activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit
   autoFlipPanel: 1
+  flipPanel: 0
   image: {fileID: 0}
   showButtons: 1
   button1Text: Continue
