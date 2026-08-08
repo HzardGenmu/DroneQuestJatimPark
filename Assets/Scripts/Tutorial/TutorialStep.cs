@@ -50,6 +50,10 @@ public class TutorialStep : ScriptableObject
     public string inputActionName = "Submit";
 
     public bool autoFlipPanel = true;
+
+    [Header("Panel Flip")]
+    public bool flipPanel;
+
     [Header("Optional UI")]
     public Sprite image;
 

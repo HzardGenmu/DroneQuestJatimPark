@@ -27,6 +27,7 @@ public class CropField : MonoBehaviour
     private static float fertilizerAltitude;
     private static float pesticideAltitude;
     public bool IsCompleted => !requirement.Needed;
+    public bool NeedsTreatment => requirement.Needed;
 
     private void Awake()
     {
@@ -45,9 +46,12 @@ public class CropField : MonoBehaviour
         // Generate one random altitude per treatment type.
         if (!altitudesInitialized)
         {
-            waterAltitude = Random.Range(2f, 20f);
-            fertilizerAltitude = Random.Range(2f, 20f);
-            pesticideAltitude = Random.Range(2f, 20f);
+            //waterAltitude = Random.Range(2f, 20f);
+            //fertilizerAltitude = Random.Range(2f, 20f);
+            //pesticideAltitude = Random.Range(2f, 20f);
+            waterAltitude = 18f;
+            fertilizerAltitude = 14f;
+            pesticideAltitude = 6f;
 
             altitudesInitialized = true;
         }

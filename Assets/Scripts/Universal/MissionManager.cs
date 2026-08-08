@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
@@ -11,10 +10,15 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private MissionObjectiveUI objectiveUI;
     [SerializeField] private LevelCompleteManager levelCompleteManager;
 
-    private readonly List<CropField> cropFields = new();
+    private readonly List<CropField> allCrops = new();
 
-    private int totalFields;
-    private int completedFields;
+    private readonly List<CropField> waterCrops = new();
+    private readonly List<CropField> fertilizerCrops = new();
+    private readonly List<CropField> pesticideCrops = new();
+
+    private int completedWater;
+    private int completedFertilizer;
+    private int completedPesticide;
 
     private bool missionCompleted;
 
@@ -25,10 +29,32 @@ public class MissionManager : MonoBehaviour
 
     private void Start()
     {
+        RefreshUI();
+    }
 
-        completedFields = 0;
+    public void RegisterCrop(CropField crop)
+    {
+        if (allCrops.Contains(crop))
+            return;
 
-        UpdateObjectiveUI();
+        allCrops.Add(crop);
+
+        switch (crop.GetRequiredTreatment())
+        {
+            case CropTreatment.Water:
+                waterCrops.Add(crop);
+                break;
+
+            case CropTreatment.Fertilizer:
+                fertilizerCrops.Add(crop);
+                break;
+
+            case CropTreatment.Pesticide:
+                pesticideCrops.Add(crop);
+                break;
+        }
+
+        RefreshUI();
     }
 
     public void NotifyCropCompleted(CropField crop)
@@ -36,47 +62,51 @@ public class MissionManager : MonoBehaviour
         if (missionCompleted)
             return;
 
-        completedFields++;
+        RefreshUI();
 
-        UpdateObjectiveUI();
-
-        Debug.Log($"Crop completed: {crop.name} ({crop.GetEntityId()}) - Progress: {completedFields}/{totalFields}");
-        if (completedFields >= totalFields)
+        if (completedWater +
+            completedFertilizer +
+            completedPesticide >= allCrops.Count)
         {
             missionCompleted = true;
-            Debug.Log("All crops completed! Mission complete.");
             levelCompleteManager.CompleteLevel();
-            Debug.Log("Level complete UI triggered.");
         }
     }
 
-    private void UpdateObjectiveUI()
+    private void RefreshUI()
     {
         if (objectiveUI == null)
             return;
 
-        string objective =
-            GameManager.Instance.CurrentLevel.objective;
+        completedWater = waterCrops.Count(c => c.IsCompleted);
+        completedFertilizer = fertilizerCrops.Count(c => c.IsCompleted);
+        completedPesticide = pesticideCrops.Count(c => c.IsCompleted);
 
-        objective +=
-            $"\n\nProgress: {completedFields}/{totalFields}";
+        objectiveUI.UpdateTreatmentProgress(
+            CropTreatment.Water,
+            completedWater,
+            waterCrops.Count);
 
-        objectiveUI.SetObjective(objective);
+        objectiveUI.UpdateTreatmentProgress(
+            CropTreatment.Fertilizer,
+            completedFertilizer,
+            fertilizerCrops.Count);
+
+        objectiveUI.UpdateTreatmentProgress(
+            CropTreatment.Pesticide,
+            completedPesticide,
+            pesticideCrops.Count);
     }
 
-    public void RegisterCrop(CropField crop)
-    {
-        if (cropFields.Contains(crop))
-        {
-            Debug.Log($"Duplicate registration ignored: {crop.name} ({crop.GetEntityId()})");
-            return;
-        }
+    #region Optional Public Getters
 
-        cropFields.Add(crop);
-        totalFields = cropFields.Count;
+    public int TotalWater => waterCrops.Count;
+    public int TotalFertilizer => fertilizerCrops.Count;
+    public int TotalPesticide => pesticideCrops.Count;
 
-        Debug.Log($"Registered #{totalFields}: {crop.name} ({crop.GetEntityId()})");
+    public int CompletedWater => completedWater;
+    public int CompletedFertilizer => completedFertilizer;
+    public int CompletedPesticide => completedPesticide;
 
-        UpdateObjectiveUI();
-    }
+    #endregion
 }

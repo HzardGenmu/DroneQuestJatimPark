@@ -1,5 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+public enum LevelResult
+{
+    Complete,
+    Failed
+}
 
 public class LevelCompleteManager : MonoBehaviour
 {
@@ -8,12 +13,24 @@ public class LevelCompleteManager : MonoBehaviour
 
     [SerializeField] private DroneBattery battery;
 
-    [SerializeField] private string mapScene = "MapSelector";
+    [Header("UI")]
+    [SerializeField] private LevelResultPanel resultPanel;
 
-    [SerializeField] private CongratulationsPanel congratulationsPanel;
+    private bool levelFinished;
+
+    public bool LevelFinished => levelFinished;
+
+    //----------------------------------------
+    // LEVEL COMPLETE
+    //----------------------------------------
 
     public void CompleteLevel()
     {
+        if (levelFinished)
+            return;
+
+        levelFinished = true;
+
         int stars = CalculateStars();
 
         MapSaveSystem.Instance.SaveStars(
@@ -23,9 +40,28 @@ public class LevelCompleteManager : MonoBehaviour
         MapSaveSystem.Instance.UnlockNextLevel(
             levelIndex);
 
-        congratulationsPanel.Show();
+        resultPanel.Show(
+            LevelResult.Complete,
+            stars);
     }
 
+    //----------------------------------------
+    // LEVEL FAILED
+    //----------------------------------------
+
+    public void FailLevel()
+    {
+        if (levelFinished)
+            return;
+
+        levelFinished = true;
+
+        resultPanel.Show(
+            LevelResult.Failed,
+            0);
+    }
+
+    //----------------------------------------
 
     private int CalculateStars()
     {
@@ -33,13 +69,13 @@ public class LevelCompleteManager : MonoBehaviour
             battery.CurrentBattery /
             battery.MaxBattery;
 
-        if (batteryPercent >= 0.8f)
+        if (batteryPercent >= .667f)
             return 3;
 
-        if (batteryPercent >= 0.5f)
+        if (batteryPercent >= .5f)
             return 2;
 
-        if (batteryPercent >= 0.2f)
+        if (batteryPercent >= .2f)
             return 1;
 
         return 0;

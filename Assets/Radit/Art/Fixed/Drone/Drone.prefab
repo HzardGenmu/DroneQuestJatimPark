@@ -401,6 +401,7 @@ MonoBehaviour:
   maxTiltAngle: 25
   tiltSmoothness: 5
   droneBody: {fileID: 4111111123541225068}
+  joystick: {fileID: 0}
 --- !u!114 &1636367830758696289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ MonoBehaviour:
   passiveDrainRate: 1
   sprayDrainRate: 2
   droneController: {fileID: 7825963274963542797}
-  batteryDepletedPanel: {fileID: 0}
+  levelCompleteManager: {fileID: 0}
   playerInput: {fileID: 3712121500619401874}
 --- !u!114 &1941316853167176618
 MonoBehaviour:
@@ -536,6 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DroneCamera
   followCamera: {fileID: 0}
   bottomCamera: {fileID: 4892260004055747482}
+  brain: {fileID: 0}
   orbitalFollow: {fileID: 0}
   cameraInput: {fileID: 0}
   crosshair: {fileID: 0}

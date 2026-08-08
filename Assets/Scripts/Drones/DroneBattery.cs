@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class DroneBattery : MonoBehaviour
 {
     [Header("Battery")]
-    [SerializeField] private float maxBattery = 100f;
+    [SerializeField] private float maxBattery = 180f;
 
     [SerializeField] private float passiveDrainRate = 1f;
 
@@ -13,8 +13,8 @@ public class DroneBattery : MonoBehaviour
     [Header("Drone")]
     [SerializeField] private DroneController droneController;
 
-    [Header("UI")]
-    [SerializeField] private GameObject batteryDepletedPanel;
+    [Header("Managers")]
+    [SerializeField] private LevelCompleteManager levelCompleteManager;
 
     [SerializeField] private PlayerInput playerInput;
 
@@ -30,8 +30,6 @@ public class DroneBattery : MonoBehaviour
     private void Start()
     {
         currentBattery = maxBattery;
-
-        batteryDepletedPanel.SetActive(false);
     }
 
     private void Update()
@@ -39,7 +37,6 @@ public class DroneBattery : MonoBehaviour
         if (batteryDepleted)
             return;
 
-        // Don't drain battery unless the drone is flying.
         if (droneController.CurrentState != DroneController.DroneState.Flying)
             return;
 
@@ -60,17 +57,17 @@ public class DroneBattery : MonoBehaviour
     {
         batteryDepleted = true;
 
-        currentBattery = 0;
-
-        batteryDepletedPanel.SetActive(true);
+        currentBattery = 0f;
 
         playerInput.enabled = false;
 
         GameEvents.OnBatteryDepleted?.Invoke();
 
         Debug.Log("Battery Depleted");
-    }
 
+        if (levelCompleteManager != null)
+            levelCompleteManager.FailLevel();
+    }
 
     public void SetSpraying(bool value)
     {

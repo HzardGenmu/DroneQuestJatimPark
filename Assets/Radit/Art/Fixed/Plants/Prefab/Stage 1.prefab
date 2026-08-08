@@ -37819,7 +37819,7 @@ MonoBehaviour:
   requirement:
     Needed: 0
     OptimalAltitude: 5
-    Tolerance: 4.5
+    Tolerance: 1
   requiredTreatment: 0
   healthyModel: {fileID: 7719600341219543957}
   fertilizerModel: {fileID: 1262460113736379504}
