@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelS/Map #7.unity
     guid: 000db6b179c47a44a896e20798d5f7d5
+  - enabled: 1
+    path: Assets/Scenes/MapSelector 1.unity
+    guid: 6dbcde1eee53e954fb39028a19b4a52b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: fd9c3659366331843901a2ea8f5fe8be, type: 3}

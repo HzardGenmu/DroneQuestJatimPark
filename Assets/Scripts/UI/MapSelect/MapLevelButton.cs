@@ -24,6 +24,9 @@ public class MapLevelButton : MonoBehaviour
     [SerializeField] private Sprite filledStar;
     [SerializeField] private Sprite emptyStar;
 
+    [Header("Highlight")]
+    [SerializeField] private GameObject highlightObject;
+
     [Header("Animation")]
     [SerializeField] private float selectedScale = 1.1f;
     [SerializeField] private float animationDuration = 0.25f;
@@ -62,6 +65,9 @@ public class MapLevelButton : MonoBehaviour
 
         UpdateStars(earnedStars);
 
+        if (highlightObject != null)
+            highlightObject.SetActive(false);
+
         root.localScale = Vector3.one;
     }
 
@@ -88,6 +94,9 @@ public class MapLevelButton : MonoBehaviour
     {
         selected = true;
 
+        if (highlightObject != null)
+            highlightObject.SetActive(true);
+
         root.DOKill();
 
         root
@@ -105,6 +114,9 @@ public class MapLevelButton : MonoBehaviour
     public void Deselect()
     {
         selected = false;
+
+        if (highlightObject != null)
+            highlightObject.SetActive(false);
 
         root.DOKill();
 
