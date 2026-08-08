@@ -45,15 +45,11 @@ public class CropField : MonoBehaviour
         // Generate one random altitude per treatment type.
         if (!altitudesInitialized)
         {
-            waterAltitude = 4f;
+            waterAltitude = Random.Range(2f, 20f);
             fertilizerAltitude = Random.Range(2f, 20f);
             pesticideAltitude = Random.Range(2f, 20f);
 
             altitudesInitialized = true;
-
-            Debug.Log($"Water Altitude: {waterAltitude:F1}");
-            Debug.Log($"Fertilizer Altitude: {fertilizerAltitude:F1}");
-            Debug.Log($"Pesticide Altitude: {pesticideAltitude:F1}");
         }
 
         switch (requiredTreatment)
