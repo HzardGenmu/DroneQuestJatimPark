@@ -10,6 +10,19 @@ public static class GameEvents
     public static Action OnBatteryDepleted;
     public static Action OnCameraModeChanged;
 
+    // Current camera state
+    public static bool IsBottomCameraActive { get; private set; }
+
+    public static void SetCameraMode(bool bottomCameraActive)
+    {
+        if (IsBottomCameraActive == bottomCameraActive)
+            return;
+
+        IsBottomCameraActive = bottomCameraActive;
+
+        OnCameraModeChanged?.Invoke();
+    }
+
     // Plants
     public static Action OnPlantTreating;
     public static Action OnPlantCompleted;
@@ -18,7 +31,7 @@ public static class GameEvents
     public static Action<CropField> OnPlantTreated;
 
     // Economy
-    public static System.Action OnMoneyEarned;
+    public static Action OnMoneyEarned;
     public static Action OnMoneySpent;
 
     // UI
@@ -28,4 +41,7 @@ public static class GameEvents
     // Timer
     public static Action OnTimerWarning;
     public static Action OnTimeout;
+
+    // Tutorial
+    public static Action<TutorialTriggerType> OnTutorialStepStarted;
 }

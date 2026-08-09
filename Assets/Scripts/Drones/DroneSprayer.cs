@@ -28,11 +28,13 @@ public class DroneSprayer : MonoBehaviour
     [SerializeField] private DroneBattery battery;
     [SerializeField] private DroneController drone;
 
-    private SprayType currentSprayType;
+    private SprayType currentSprayType = SprayType.Water;
     public SprayType CurrentSprayType => currentSprayType;
 
     private void Awake()
     {
+        currentSprayType = SprayType.Water;
+
         sprayParticles = new ParticleSystem[sprayOrigins.Length];
 
         for (int i = 0; i < sprayOrigins.Length; i++)
@@ -49,6 +51,8 @@ public class DroneSprayer : MonoBehaviour
                 }
             }
         }
+
+        UpdateSprayColor();
     }
 
     private void Update()

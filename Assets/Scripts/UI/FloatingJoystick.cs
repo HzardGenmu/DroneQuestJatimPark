@@ -22,9 +22,13 @@ public class FloatingJoystick : MonoBehaviour
 
     private Vector2 startPosition;
 
+    private Vector2 handleStartPosition;
+
     private void Awake()
     {
-        root.gameObject.SetActive(false);
+        // root.gameObject.SetActive(false);
+
+        handleStartPosition = handle.anchoredPosition;
     }
 
     public void Begin(Vector2 screenPosition, int fingerId)
@@ -35,25 +39,21 @@ public class FloatingJoystick : MonoBehaviour
         dragging = true;
         pointerId = fingerId;
 
-        root.gameObject.SetActive(true);
+        // root.gameObject.SetActive(true);
 
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransform parentRect =
+            root.parent as RectTransform;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect,
+            parentRect,
             screenPosition,
             null,
             out startPosition);
 
-        root.anchoredPosition = startPosition;
+        // root.anchoredPosition = startPosition;
 
-        background.anchoredPosition = Vector2.zero;
-        handle.anchoredPosition = Vector2.zero;
-
-        Debug.Log($"Screen: {screenPosition}");
-        Debug.Log($"Local: {startPosition}");
-        Debug.Log($"Root Parent: {root.parent.name}");
-        Debug.Log($"Canvas: {canvas.GetComponent<RectTransform>().rect}");
+        // background.anchoredPosition = Vector2.zero;
+        // handle.anchoredPosition = Vector2.zero;
 
         Input = Vector2.zero;
     }
@@ -71,14 +71,19 @@ public class FloatingJoystick : MonoBehaviour
             null,
             out currentPosition);
 
-        Vector2 delta = currentPosition - startPosition;
+        Vector2 delta =
+            currentPosition - startPosition;
 
         Vector2 clamped =
-            Vector2.ClampMagnitude(delta, movementRange);
+            Vector2.ClampMagnitude(
+                delta,
+                movementRange);
 
-        handle.anchoredPosition = clamped;
+        handle.anchoredPosition =
+            handleStartPosition + clamped;
 
-        Input = clamped / movementRange;
+        Input =
+            clamped / movementRange;
 
         if (Input.magnitude < deadZone)
             Input = Vector2.zero;
@@ -94,8 +99,22 @@ public class FloatingJoystick : MonoBehaviour
 
         Input = Vector2.zero;
 
-        handle.anchoredPosition = Vector2.zero;
+        handle.anchoredPosition =
+            handleStartPosition;
 
-        root.gameObject.SetActive(false);
+        // root.gameObject.SetActive(false);
+    }
+
+    public void Cancel()
+    {
+        dragging = false;
+        pointerId = -1;
+
+        Input = Vector2.zero;
+
+        handle.anchoredPosition =
+            handleStartPosition;
+
+        // root.gameObject.SetActive(false);
     }
 }

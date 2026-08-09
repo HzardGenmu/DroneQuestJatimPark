@@ -3,9 +3,9 @@ using UnityEngine;
 public class AltitudeManager : MonoBehaviour
 {
     [SerializeField] private DroneController drone;
-    [SerializeField] private DroneSprayer sprayer;
-    [SerializeField] private LayerMask cropLayer;
-    [SerializeField] private float checkDistance = 25f;
+    //[SerializeField] private DroneSprayer sprayer;
+    //[SerializeField] private LayerMask cropLayer;
+    //[SerializeField] private float checkDistance = 25f;
     [SerializeField] private float checkInterval = 0.05f;
 
     private DroneScanner scanner;
@@ -45,6 +45,35 @@ public class AltitudeManager : MonoBehaviour
         }
     }
 
+    //private void CheckCrop()
+    //{
+    //    CurrentCrop = scanner.CurrentScannedCrop;
+
+    //    if (CurrentCrop == null)
+    //    {
+    //        CurrentState = AltitudeState.None;
+    //        SelectedState = AltitudeState.None;
+    //        return;
+    //    }
+
+    //    if ((CropTreatment)sprayer.CurrentSprayType !=
+    //        CurrentCrop.GetRequiredTreatment())
+    //    {
+    //        CurrentState = AltitudeState.None;
+    //        SelectedState = AltitudeState.None;
+    //        return;
+    //    }
+
+    //    float target = CurrentCrop.GetOptimalAltitude();
+    //    float tolerance = CurrentCrop.GetTolerance();
+
+    //    CurrentState =
+    //        GetState(drone.CurrentAltitude, target, tolerance);
+
+    //    SelectedState =
+    //        GetState(drone.TargetAltitude, target, tolerance);
+    //}
+
     private void CheckCrop()
     {
         CurrentCrop = scanner.CurrentScannedCrop;
@@ -56,22 +85,20 @@ public class AltitudeManager : MonoBehaviour
             return;
         }
 
-        if ((CropTreatment)sprayer.CurrentSprayType !=
-            CurrentCrop.GetRequiredTreatment())
-        {
-            CurrentState = AltitudeState.None;
-            SelectedState = AltitudeState.None;
-            return;
-        }
-
         float target = CurrentCrop.GetOptimalAltitude();
         float tolerance = CurrentCrop.GetTolerance();
 
         CurrentState =
-            GetState(drone.CurrentAltitude, target, tolerance);
+            GetState(
+                drone.CurrentAltitude,
+                target,
+                tolerance);
 
         SelectedState =
-            GetState(drone.TargetAltitude, target, tolerance);
+            GetState(
+                drone.TargetAltitude,
+                target,
+                tolerance);
     }
 
     private AltitudeState GetState(

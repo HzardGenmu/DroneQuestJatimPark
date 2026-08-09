@@ -181,9 +181,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9279580}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 9279579}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &9279577 stripped
@@ -245,26 +242,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9279580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9279578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &71044771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -415,9 +392,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 176150359}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 176150358}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &176150356 stripped
@@ -479,26 +453,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &176150359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176150357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &198174419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,7 +524,7 @@ PrefabInstance:
     - target: {fileID: 3429583585787497580, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: drone
       value: 
-      objectReference: {fileID: 2024180256}
+      objectReference: {fileID: 2024180261}
     - target: {fileID: 3429583585787497580, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: signalIcon
       value: 
@@ -1162,9 +1116,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 409014342}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 409014341}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &409014339 stripped
@@ -1226,26 +1177,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &409014342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409014340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!224 &409622589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6442055829471724945, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -1456,9 +1387,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 453988119}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 453988118}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &453988116 stripped
@@ -1520,26 +1448,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &453988119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453988117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &455484791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1600,9 +1508,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 455484795}
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 455484794}
@@ -1666,26 +1571,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &455484795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455484793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1 &493791054 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682336464070775715, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -1806,9 +1691,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 537920082}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 537920081}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &537920079 stripped
@@ -1870,26 +1752,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &537920082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537920080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &538532186 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4109307865387888338, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -1953,100 +1815,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plants
       objectReference: {fileID: 0}
-    - target: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 548399225}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 548399224}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &548399222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8419872092512773449, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
   m_PrefabInstance: {fileID: 548399221}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &548399223 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-  m_PrefabInstance: {fileID: 548399221}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &548399224
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548399223}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 799218940088600144, guid: b7848880555c77f45ac714ebd274c423, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &548399225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548399223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &610273624 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6438768691135788842, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -2120,9 +1898,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 642645599}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 642645598}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &642645596 stripped
@@ -2184,26 +1959,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &642645599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642645597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &692910253 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6924811706482337344, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -2288,9 +2043,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 804856132}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 804856131}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &804856129 stripped
@@ -2352,26 +2104,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &804856132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 804856130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &811853568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2432,9 +2164,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 811853572}
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 811853571}
@@ -2498,26 +2227,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &811853572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811853570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &823884668 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5224198759242919691, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -2640,9 +2349,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 851874728}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 851874727}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &851874725 stripped
@@ -2704,26 +2410,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &851874728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851874726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &855087776 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5468096148346268010, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -3047,9 +2733,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 896127099}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 896127098}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &896127096 stripped
@@ -3111,26 +2794,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &896127099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896127097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &951251194 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4640595012159486416, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -3336,9 +2999,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1004133238}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1004133237}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &1004133235 stripped
@@ -3400,26 +3060,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1004133238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004133236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1 &1012665590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3729,9 +3369,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1332238471}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1332238470}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &1332238468 stripped
@@ -3793,26 +3430,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1332238471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332238469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &1391712297 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9118320626791581853, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -3919,9 +3536,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1614263312}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1614263311}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &1614263309 stripped
@@ -3983,26 +3597,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1614263312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614263310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &1657736928 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8730710720773250758, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -4122,9 +3716,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1681345851}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1681345850}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &1681345848 stripped
@@ -4186,26 +3777,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1681345851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681345849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1 &1689788967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4388,9 +3959,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1802069724}
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1802069723}
   m_SourcePrefab: {fileID: 100100000, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
 --- !u!4 &1802069721 stripped
@@ -4452,26 +4020,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1802069724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802069722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &1838568649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4532,9 +4080,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1838568653}
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1838568652}
@@ -4598,26 +4143,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1838568653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838568651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &1859290428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4678,9 +4203,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1859290432}
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1859290431}
@@ -4744,26 +4266,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1859290432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859290430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!1001 &1871500836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4824,9 +4326,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1871500840}
     - targetCorrespondingSourceObject: {fileID: 8643336519410172260, guid: 35dca610ba3b7d74e8b22fd15b67eb0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1871500839}
@@ -4890,26 +4389,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1871500840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1871500838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f8a5cdd9ec227458bf11a540a332d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CropField
-  requirement:
-    Needed: 0
-    OptimalAltitude: 5
-    Tolerance: 0.5
-  requiredTreatment: 0
-  healthyModel: {fileID: 0}
-  fertilizerModel: {fileID: 0}
-  pesticideModel: {fileID: 0}
 --- !u!114 &1875338363 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5830252086011975937, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -5076,6 +4555,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 995146176}
+    - target: {fileID: 1943681940649792656, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 585dc6ee133931d42a8246766a9df229, type: 3}
     - target: {fileID: 2126841547015448975, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

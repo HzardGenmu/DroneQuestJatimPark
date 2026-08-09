@@ -13,6 +13,9 @@ public class CropField : MonoBehaviour
     [SerializeField] private TreatmentRequirement requirement;
     [SerializeField] private CropTreatment requiredTreatment;
 
+    [Header("Treatment Icon")]
+    [SerializeField] private CropTreatmentIcon treatmentIcon;
+
     [Header("Models")]
     [SerializeField] private GameObject healthyModel;
     [SerializeField] private GameObject fertilizerModel;
@@ -85,6 +88,10 @@ public class CropField : MonoBehaviour
     private void Start()
     {
         MissionManager.Instance.RegisterCrop(this);
+
+        if (treatmentIcon != null)
+            treatmentIcon.SetTreatment(requiredTreatment);
+
         UpdateVisuals();
     }
 
@@ -195,33 +202,30 @@ public class CropField : MonoBehaviour
         return requiredTreatment;
     }
 
-    public void ReceiveTreatment(SprayType spray, float altitude)
-    {
-        if (!requirement.Needed)
-        {
-            return;
-        }
+public void ReceiveTreatment(SprayType spray, float altitude)
+{
+    if (!requirement.Needed)
+        return;
 
-        if ((CropTreatment)spray != requiredTreatment)
-        {
-            return;
-        }
+    if ((CropTreatment)spray != requiredTreatment)
+        return;
 
-        if (!IsAltitudeCorrect(altitude))
-        {
-            return;
-        }
+    if (!IsAltitudeCorrect(altitude))
+        return;
 
-        requirement.Needed = false;
+    requirement.Needed = false;
 
-        UpdateVisuals();
+    if (treatmentIcon != null)
+        treatmentIcon.Hide();
 
-        GameEvents.OnPlantTreated?.Invoke(this);
+    UpdateVisuals();
 
-        GameEvents.OnPlantCompleted?.Invoke();
+    GameEvents.OnPlantTreated?.Invoke(this);
 
-        MissionManager.Instance.NotifyCropCompleted(this);
-    }
+    GameEvents.OnPlantCompleted?.Invoke();
+
+    MissionManager.Instance.NotifyCropCompleted(this);
+}
 
     public static void ResetAltitudes()
     {

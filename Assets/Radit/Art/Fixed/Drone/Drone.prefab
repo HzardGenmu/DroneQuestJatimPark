@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe850f3f3e4fd246a2c62c0c2ad75bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneBattery
-  maxBattery: 180
+  maxBattery: 360
   passiveDrainRate: 1
   sprayDrainRate: 2
   droneController: {fileID: 7825963274963542797}

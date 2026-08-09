@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using Unity.Cinemachine;
 
 public class DroneCamera : MonoBehaviour
@@ -22,7 +22,6 @@ public class DroneCamera : MonoBehaviour
     [SerializeField] private int inactivePriority = 0;
 
     private bool usingBottomCamera;
-    private bool tutorialCameraTriggered;
 
     public bool IsBottomCameraActive => usingBottomCamera;
 
@@ -34,22 +33,17 @@ public class DroneCamera : MonoBehaviour
 
     private void Start()
     {
-        ShowFollowCamera();
+        usingBottomCamera = false;
+
+        followCamera.Priority = activePriority;
+        bottomCamera.Priority = inactivePriority;
+
+        if (crosshair != null)
+            crosshair.SetActive(false);
+
+        // Initial state
+        GameEvents.SetCameraMode(false);
     }
-
-    //private void Update()
-    //{
-    //    if (usingBottomCamera)
-    //        return;
-
-    //    Vector2 look = cameraInput.GetLookDelta();
-
-    //    orbitalFollow.HorizontalAxis.Value +=
-    //        look.x * horizontalSensitivity;
-
-    //    orbitalFollow.VerticalAxis.Value -=
-    //        look.y * verticalSensitivity;
-    //}
 
     private void Update()
     {
@@ -61,33 +55,36 @@ public class DroneCamera : MonoBehaviour
 
         Vector2 look = cameraInput.LookDelta;
 
-        orbitalFollow.HorizontalAxis.Value += look.x * horizontalSensitivity;
-        //orbitalFollow.VerticalAxis.Value -= look.y * verticalSensitivity;
+        orbitalFollow.HorizontalAxis.Value +=
+            look.x * horizontalSensitivity;
     }
 
     public void ToggleCamera()
     {
         if (usingBottomCamera)
+        {
             ShowFollowCamera();
+        }
         else
+        {
             ShowBottomCamera();
-
-        if (!tutorialCameraTriggered)
-            StartCoroutine(WaitForBlend());
+            StartCoroutine(WaitForBottomCamera());
+        }
     }
 
-    private IEnumerator WaitForBlend()
+    private IEnumerator WaitForBottomCamera()
     {
-        // Wait until a blend starts
-        while (!brain.IsBlending)
-            yield return null;
+        // Give Cinemachine one frame to process the priority change.
+        yield return null;
 
-        // Wait until it finishes
-        while (brain.IsBlending)
+        // If a blend is happening, wait until it is completely finished.
+        while (brain != null && brain.IsBlending)
+        {
             yield return null;
+        }
 
-        tutorialCameraTriggered = true;
-        GameEvents.OnCameraModeChanged?.Invoke();
+        // The camera is now actually in bottom-camera mode.
+        GameEvents.SetCameraMode(true);
     }
 
     public void ShowBottomCamera()
@@ -103,6 +100,8 @@ public class DroneCamera : MonoBehaviour
 
     public void ShowFollowCamera()
     {
+        bool wasBottomCamera = usingBottomCamera;
+
         usingBottomCamera = false;
 
         followCamera.Priority = activePriority;
@@ -110,5 +109,10 @@ public class DroneCamera : MonoBehaviour
 
         if (crosshair != null)
             crosshair.SetActive(false);
+
+        if (wasBottomCamera)
+        {
+            GameEvents.SetCameraMode(false);
+        }
     }
 }

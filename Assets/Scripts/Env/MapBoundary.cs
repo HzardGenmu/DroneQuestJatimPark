@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class MapBoundary : MonoBehaviour
 {
     [Header("Boundary")]
-    [SerializeField] private Transform drone;
+    [SerializeField] private DroneController drone;
 
     [SerializeField] private Vector3 mapCenter;
 
@@ -40,7 +40,7 @@ public class MapBoundary : MonoBehaviour
     {
         float distance =
             Vector3.Distance(
-                drone.position,
+                drone.transform.position,
                 mapCenter);
 
         if (distance < warningRadius)
@@ -82,25 +82,12 @@ public class MapBoundary : MonoBehaviour
 
     private void RespawnDrone()
     {
-        drone.position =
-            respawnPoint.position;
-
-        Rigidbody rb =
-            drone.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
+        drone.Respawn(respawnPoint.position);
 
         staticEffect.SetIntensity(0f);
-        
+
         if (signalHandle != null)
-        {
             signalHandle.Source.volume = 0f;
-        }
-        Debug.Log("Drone lost signal. Returning to base.");
     }
 
     private void UpdateSignalIcon(float signalStrength)

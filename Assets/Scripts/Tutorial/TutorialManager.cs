@@ -125,22 +125,29 @@ public class TutorialManager : MonoBehaviour
 
     public void CompleteStep()
     {
-        Debug.Log(
-    $"Completing Step {currentStepIndex}"
-);
         if (!isRunning)
             return;
 
         if (isTransitioningStep)
             return;
 
+        Debug.Log(
+            $"Completing Step {currentStepIndex}"
+        );
+
         isTransitioningStep = true;
 
         NextStep();
+
+        isTransitioningStep = false;
+
+        // Check the newly entered step AFTER
+        // the transition lock has been released.
+        CheckCurrentStepState();
+
         Debug.Log(
             $"Moved to Step {currentStepIndex}"
         );
-        isTransitioningStep = false;
     }
 
     void ShowStep(TutorialStep step)
@@ -195,6 +202,8 @@ public class TutorialManager : MonoBehaviour
         {
             TutorialUI.Instance.Hide();
         }
+
+        GameEvents.OnTutorialStepStarted?.Invoke(step.triggerType);
     }
 
     private IEnumerator RestoreControlsNextFrame()
@@ -314,6 +323,51 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    private void CheckCurrentStepState()
+    {
+        if (!tutorialActive)
+            return;
+
+        TutorialStep step = CurrentStep;
+
+        if (step == null)
+            return;
+
+        switch (step.triggerType)
+        {
+            case TutorialTriggerType.OnCameraModeChanged:
+
+                if (GameEvents.IsBottomCameraActive)
+                {
+                    Debug.Log(
+                        "Camera already in bottom mode. Auto-completing camera tutorial step."
+                    );
+
+                    CompleteStep();
+                }
+
+                break;
+
+            case TutorialTriggerType.OnPlantScanned:
+
+                if (firstScannedPlant != null)
+                {
+                    CompleteStep();
+                }
+
+                break;
+
+            case TutorialTriggerType.OnPlantTreated:
+
+                if (firstTreatedPlant != null)
+                {
+                    CompleteStep();
+                }
+
+                break;
+        }
+    }
+
     void HandlePlantScanned()
         => CheckTrigger(
             TutorialTriggerType.OnPlantScanned
@@ -323,10 +377,12 @@ public class TutorialManager : MonoBehaviour
         => CheckTrigger(
             TutorialTriggerType.OnPlantTreated
         );
-    void HandleCameraModeChanged()
-        => CheckTrigger(
+    private void HandleCameraModeChanged()
+    {
+        CheckTrigger(
             TutorialTriggerType.OnCameraModeChanged
         );
+    }
 
     //void HandleCookComplete()
     //    => CheckTrigger(

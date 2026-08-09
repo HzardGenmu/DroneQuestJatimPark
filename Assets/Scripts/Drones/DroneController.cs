@@ -109,6 +109,7 @@ public class DroneController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("MOVE EVENT");
         if (CurrentState != DroneState.Flying)
             return;
 
@@ -156,6 +157,11 @@ public class DroneController : MonoBehaviour
         velocity.y = verticalVelocity;
 
         rb.linearVelocity = velocity;
+
+        Debug.Log($"moveInput = {moveInput}");
+        Debug.Log($"joystick.Input = {joystick.Input}");
+        Debug.Log($"horizontalVelocity = {horizontalVelocity}");
+        Debug.Log($"rb.linearVelocity = {rb.linearVelocity}");
     }
 
     private void HandleTakeoff()
@@ -285,7 +291,9 @@ public class DroneController : MonoBehaviour
     {
         Vector2 input = moveInput;
 
-        if (joystick != null && joystick.IsDragging)
+        if (joystick != null &&
+            joystick.IsDragging &&
+            joystick.Input.sqrMagnitude > 0.0001f)
         {
             input = joystick.Input;
         }
@@ -318,5 +326,28 @@ public class DroneController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void Respawn(Vector3 position)
+    {
+        // Cancel any current movement state
+        moveInput = Vector2.zero;
+        lookInput = Vector2.zero;
+
+        if (joystick != null)
+            joystick.Cancel();
+
+        targetAltitude = 3f;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        rb.position = position;
+        rb.rotation = Quaternion.identity;
+
+        rb.Sleep();
+        rb.WakeUp();
+
+        CurrentState = DroneState.Flying;
     }
 }

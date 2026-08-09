@@ -933,7 +933,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0051540076, y: -0.016542196, z: 0.00008527141, w: 0.9998499}
-  m_LocalPosition: {x: -1.69, y: 5.3956327, z: -14.4698105}
+  m_LocalPosition: {x: -1.69, y: 5.3956327, z: -11.44981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2069,11 +2069,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6139097372017609041, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
   m_PrefabInstance: {fileID: 1628417919}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &830902763 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1839254364310455081, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
-  m_PrefabInstance: {fileID: 1628417919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,6 +2622,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc866a3f5e9f9940afc6bba72914636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingJoystick
+--- !u!224 &1054184017 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3979190992926509927, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
+  m_PrefabInstance: {fileID: 1628417919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1065088230 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6442055829471724945, guid: 743ce1ae47e25aa4db1cc562cfbc4056, type: 3}
@@ -2717,7 +2717,7 @@ Transform:
   m_GameObject: {fileID: 1082322072}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0051540076, y: -0.016542196, z: 0.000085271146, w: 0.9998499}
-  m_LocalPosition: {x: -1.69, y: 5.3956327, z: -14.4698105}
+  m_LocalPosition: {x: -1.69, y: 5.3956327, z: -11.44981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4012,7 +4012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8644174101929254056, guid: 0cef9120feb0f6a46b8b68aad4f5ad8b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.470001
+      value: -6.45
       objectReference: {fileID: 0}
     - target: {fileID: 8644174101929254056, guid: 0cef9120feb0f6a46b8b68aad4f5ad8b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5007,7 +5007,7 @@ PrefabInstance:
     - target: {fileID: 3429583585787497580, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: drone
       value: 
-      objectReference: {fileID: 1673030374}
+      objectReference: {fileID: 1673030372}
     - target: {fileID: 3429583585787497580, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: signalIcon
       value: 
@@ -5023,7 +5023,7 @@ PrefabInstance:
     - target: {fileID: 4513572155903414246, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: targets.Array.data[1].target
       value: 
-      objectReference: {fileID: 830902763}
+      objectReference: {fileID: 1054184017}
     - target: {fileID: 4513572155903414246, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: targets.Array.data[2].target
       value: 
@@ -5176,6 +5176,10 @@ PrefabInstance:
       propertyPath: overlayImage
       value: 
       objectReference: {fileID: 1605861961}
+    - target: {fileID: 7542079051154724553, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7613960543064683332, guid: 2bffd10508f8ac04f86920223c111d72, type: 3}
       propertyPath: drone
       value: 
