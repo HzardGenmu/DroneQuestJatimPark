@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum SprayType
@@ -13,10 +14,11 @@ public class DroneSprayer : MonoBehaviour
     [SerializeField] private Color fertilizerColor = Color.yellow;
     [SerializeField] private Color pesticideColor = Color.red;
 
-    [SerializeField] private Transform sprayOrigin;
-    [SerializeField] private float sprayRadius = 2f;
-    [SerializeField] private ParticleSystem sprayParticles;
+    [SerializeField] private Transform[] sprayOrigins;
+    [SerializeField] private float sprayRadius = 1f;
+    [SerializeField] private float sprayLength = 5f;
 
+    private ParticleSystem[] sprayParticles;
     private bool isSpraying;
 
     [SerializeField] private float sprayInterval = 0.2f;
@@ -26,8 +28,32 @@ public class DroneSprayer : MonoBehaviour
     [SerializeField] private DroneBattery battery;
     [SerializeField] private DroneController drone;
 
-    private SprayType currentSprayType;
+    private SprayType currentSprayType = SprayType.Water;
     public SprayType CurrentSprayType => currentSprayType;
+
+    private void Awake()
+    {
+        currentSprayType = SprayType.Water;
+
+        sprayParticles = new ParticleSystem[sprayOrigins.Length];
+
+        for (int i = 0; i < sprayOrigins.Length; i++)
+        {
+            if (sprayOrigins[i] != null)
+            {
+                sprayParticles[i] =
+                    sprayOrigins[i].GetComponentInChildren<ParticleSystem>();
+
+                if (sprayParticles[i] == null)
+                {
+                    Debug.LogWarning(
+                        $"No ParticleSystem found under {sprayOrigins[i].name}");
+                }
+            }
+        }
+
+        UpdateSprayColor();
+    }
 
     private void Update()
     {
@@ -71,16 +97,18 @@ public class DroneSprayer : MonoBehaviour
     {
         if (isSpraying)
             return;
-        if (drone.CurrentState !=
-            DroneController.DroneState.Flying)
-        {
+        if (drone.CurrentState != DroneController.DroneState.Flying)
             return;
-        }
+
         isSpraying = true;
+        GameEvents.OnSprayStarted?.Invoke();
+        
+        foreach (ParticleSystem ps in sprayParticles)
+        {
+            if (ps != null)
+                ps.Play();
+        }
 
-        Debug.Log($"START SPRAYING {currentSprayType}");
-
-        sprayParticles.Play();
         battery.SetSpraying(true);
     }
 
@@ -91,48 +119,139 @@ public class DroneSprayer : MonoBehaviour
 
         isSpraying = false;
 
+        GameEvents.OnSprayStopped?.Invoke();
+
         Debug.Log("STOP SPRAYING");
 
-        sprayParticles.Stop();
+        foreach (ParticleSystem ps in sprayParticles)
+        {
+            if (ps != null)
+                ps.Stop();
+        }
+
         battery.SetSpraying(false);
     }
 
     private void ApplySpray()
     {
-        Collider[] hits =
-            Physics.OverlapSphere(
-                sprayOrigin.position,
-                sprayRadius);
+        Debug.Log($"[SPRAY] Applying {currentSprayType} at altitude {drone.CurrentAltitude:F2}");
 
-        foreach (Collider hit in hits)
+        HashSet<CropField> treatedCrops = new();
+
+        foreach (Transform origin in sprayOrigins)
         {
-            CropField crop =
-                hit.GetComponentInParent<CropField>();
-
-            if (crop == null)
+            if (origin == null)
                 continue;
 
-            crop.ReceiveTreatment(currentSprayType, drone.CurrentAltitude);
+            RaycastHit[] hits = Physics.SphereCastAll(
+                origin.position,
+                sprayRadius,
+                -origin.up,
+                sprayLength);
+
+            Debug.Log($"[SPRAY] {origin.name} hit {hits.Length} colliders.");
+
+            foreach (RaycastHit hit in hits)
+            {
+                Debug.Log($"[SPRAY] Collider: {hit.collider.name}");
+
+                CropField crop = hit.collider.GetComponentInParent<CropField>();
+
+                if (crop == null)
+                {
+                    Debug.Log("[SPRAY] -> No CropField found.");
+                    continue;
+                }
+
+                // Prevent treating the same crop multiple times
+                if (!treatedCrops.Add(crop))
+                    continue;
+
+                Debug.Log($"[SPRAY] -> Found CropField: {crop.name}");
+
+                crop.ReceiveTreatment(
+                    currentSprayType,
+                    drone.CurrentAltitude);
+            }
         }
     }
 
     private void UpdateSprayColor()
     {
-        var main = sprayParticles.main;
-
-        switch (currentSprayType)
+        foreach (ParticleSystem ps in sprayParticles)
         {
-            case SprayType.Water:
-                main.startColor = waterColor;
-                break;
+            if (ps == null)
+                continue;
 
-            case SprayType.Fertilizer:
-                main.startColor = fertilizerColor;
-                break;
+            var main = ps.main;
 
-            case SprayType.Pesticide:
-                main.startColor = pesticideColor;
-                break;
+            switch (currentSprayType)
+            {
+                case SprayType.Water:
+                    main.startColor = waterColor;
+                    break;
+
+                case SprayType.Fertilizer:
+                    main.startColor = fertilizerColor;
+                    break;
+
+                case SprayType.Pesticide:
+                    main.startColor = pesticideColor;
+                    break;
+            }
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (sprayOrigins == null)
+            return;
+
+        Gizmos.color = Color.cyan;
+
+        foreach (Transform origin in sprayOrigins)
+        {
+            if (origin == null)
+                continue;
+
+            Vector3 start = origin.position;
+            Vector3 end = start + (-origin.up * sprayLength);
+
+            Gizmos.DrawLine(start, end);
+
+            DrawWireCircle(start, sprayRadius, origin);
+            DrawWireCircle(end, sprayRadius, origin);
+
+            Gizmos.DrawLine(start + origin.right * sprayRadius,
+                            end + origin.right * sprayRadius);
+
+            Gizmos.DrawLine(start - origin.right * sprayRadius,
+                            end - origin.right * sprayRadius);
+
+            Gizmos.DrawLine(start + origin.forward * sprayRadius,
+                            end + origin.forward * sprayRadius);
+
+            Gizmos.DrawLine(start - origin.forward * sprayRadius,
+                            end - origin.forward * sprayRadius);
+        }
+    }
+
+    private void DrawWireCircle(Vector3 center, float radius, Transform origin)
+    {
+        const int segments = 32;
+
+        Vector3 prev = center + origin.right * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i * Mathf.PI * 2f / segments;
+
+            Vector3 next =
+                center +
+                (origin.right * Mathf.Cos(angle) +
+                 origin.forward * Mathf.Sin(angle)) * radius;
+
+            Gizmos.DrawLine(prev, next);
+            prev = next;
         }
     }
 }

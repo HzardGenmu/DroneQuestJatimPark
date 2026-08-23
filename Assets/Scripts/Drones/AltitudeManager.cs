@@ -3,11 +3,12 @@ using UnityEngine;
 public class AltitudeManager : MonoBehaviour
 {
     [SerializeField] private DroneController drone;
-    [SerializeField] private DroneSprayer sprayer;
-    [SerializeField] private LayerMask cropLayer;
-    [SerializeField] private float checkDistance = 25f;
+    //[SerializeField] private DroneSprayer sprayer;
+    //[SerializeField] private LayerMask cropLayer;
+    //[SerializeField] private float checkDistance = 25f;
     [SerializeField] private float checkInterval = 0.05f;
 
+    private DroneScanner scanner;
     private float timer;
 
     public CropField CurrentCrop { get; private set; }
@@ -21,6 +22,17 @@ public class AltitudeManager : MonoBehaviour
     }
 
     public AltitudeState CurrentState { get; private set; }
+    public AltitudeState SelectedState { get; private set; }
+
+    private void Awake()
+    {
+        scanner = FindAnyObjectByType<DroneScanner>();
+
+        if (scanner == null)
+        {
+            Debug.LogError("No DroneScanner found in the scene!", this);
+        }
+    }
 
     private void Update()
     {
@@ -33,52 +45,73 @@ public class AltitudeManager : MonoBehaviour
         }
     }
 
-    void CheckCrop()
+    //private void CheckCrop()
+    //{
+    //    CurrentCrop = scanner.CurrentScannedCrop;
+
+    //    if (CurrentCrop == null)
+    //    {
+    //        CurrentState = AltitudeState.None;
+    //        SelectedState = AltitudeState.None;
+    //        return;
+    //    }
+
+    //    if ((CropTreatment)sprayer.CurrentSprayType !=
+    //        CurrentCrop.GetRequiredTreatment())
+    //    {
+    //        CurrentState = AltitudeState.None;
+    //        SelectedState = AltitudeState.None;
+    //        return;
+    //    }
+
+    //    float target = CurrentCrop.GetOptimalAltitude();
+    //    float tolerance = CurrentCrop.GetTolerance();
+
+    //    CurrentState =
+    //        GetState(drone.CurrentAltitude, target, tolerance);
+
+    //    SelectedState =
+    //        GetState(drone.TargetAltitude, target, tolerance);
+    //}
+
+    private void CheckCrop()
     {
-        CurrentCrop = null;
-
-        if (!Physics.Raycast(
-            drone.transform.position,
-            Vector3.down,
-            out RaycastHit hit,
-            checkDistance,
-            cropLayer))
-        {
-            CurrentState = AltitudeState.None;
-            return;
-        }
-
-        CurrentCrop =
-            hit.collider.GetComponentInParent<CropField>();
+        CurrentCrop = scanner.CurrentScannedCrop;
 
         if (CurrentCrop == null)
         {
             CurrentState = AltitudeState.None;
+            SelectedState = AltitudeState.None;
             return;
         }
 
-        float target =
-            CurrentCrop.GetOptimalAltitude(
-                sprayer.CurrentSprayType);
+        float target = CurrentCrop.GetOptimalAltitude();
+        float tolerance = CurrentCrop.GetTolerance();
 
-        float tolerance =
-            CurrentCrop.GetTolerance(
-                sprayer.CurrentSprayType);
+        CurrentState =
+            GetState(
+                drone.CurrentAltitude,
+                target,
+                tolerance);
 
-        float current =
-            drone.CurrentAltitude;
+        SelectedState =
+            GetState(
+                drone.TargetAltitude,
+                target,
+                tolerance);
+    }
 
-        if (current < target - tolerance)
-        {
-            CurrentState = AltitudeState.TooLow;
-        }
-        else if (current > target + tolerance)
-        {
-            CurrentState = AltitudeState.TooHigh;
-        }
-        else
-        {
-            CurrentState = AltitudeState.Correct;
-        }
+    private AltitudeState GetState(
+    float altitude,
+    float target,
+    float tolerance)
+    {
+        if (altitude < target - tolerance)
+            return AltitudeState.TooLow;
+
+        if (altitude > target + tolerance)
+            return AltitudeState.TooHigh;
+
+        return AltitudeState.Correct;
     }
 }

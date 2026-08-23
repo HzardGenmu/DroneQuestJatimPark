@@ -1,32 +1,96 @@
 using UnityEngine;
 
+public enum CropTreatment
+{
+    Water,
+    Fertilizer,
+    Pesticide
+}
+
 public class CropField : MonoBehaviour
 {
-    [Header("Needs")]
-    [SerializeField] private TreatmentRequirement water;
-    [SerializeField] private TreatmentRequirement fertilizer;
-    [SerializeField] private TreatmentRequirement pesticide;
+    [Header("Treatment")]
+    [SerializeField] private TreatmentRequirement requirement;
+    [SerializeField] private CropTreatment requiredTreatment;
+
+    [Header("Treatment Icon")]
+    [SerializeField] private CropTreatmentIcon treatmentIcon;
+
+    [Header("Models")]
+    [SerializeField] private GameObject healthyModel;
+    [SerializeField] private GameObject fertilizerModel;
+    [SerializeField] private GameObject pesticideModel;
 
     private Outline outline;
-
     private bool scanned;
+
+    private static bool altitudesInitialized;
+
+    private static float waterAltitude;
+    private static float fertilizerAltitude;
+    private static float pesticideAltitude;
+    public bool IsCompleted => !requirement.Needed;
+    public bool NeedsTreatment => requirement.Needed;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
 
-        outline.enabled = false;
+        if (outline != null)
+            outline.enabled = false;
+
+        requiredTreatment = (CropTreatment)Random.Range(0, 3);
+
+        requirement.Needed = true;
+
+        // Original logic.
+        // requirement.OptimalAltitude = Random.Range(2f, 20f);
+
+        // Generate one random altitude per treatment type.
+        if (!altitudesInitialized)
+        {
+            //waterAltitude = Random.Range(2f, 20f);
+            //fertilizerAltitude = Random.Range(2f, 20f);
+            //pesticideAltitude = Random.Range(2f, 20f);
+            waterAltitude = 18f;
+            fertilizerAltitude = 14f;
+            pesticideAltitude = 6f;
+
+            altitudesInitialized = true;
+        }
+
+        switch (requiredTreatment)
+        {
+            case CropTreatment.Water:
+                requirement.OptimalAltitude = waterAltitude;
+                break;
+
+            case CropTreatment.Fertilizer:
+                requirement.OptimalAltitude = fertilizerAltitude;
+                break;
+
+            case CropTreatment.Pesticide:
+                requirement.OptimalAltitude = pesticideAltitude;
+                break;
+        }
+
+        // Ensure all models stay active so Outline caches every renderer.
+        if (healthyModel != null)
+            healthyModel.SetActive(true);
+
+        if (fertilizerModel != null)
+            fertilizerModel.SetActive(true);
+
+        if (pesticideModel != null)
+            pesticideModel.SetActive(true);
     }
 
     private void Start()
     {
-        water.Needed = Random.value > .5f;
-        fertilizer.Needed = Random.value > .5f;
-        pesticide.Needed = Random.value > .5f;
+        MissionManager.Instance.RegisterCrop(this);
 
-        water.OptimalAltitude = Random.Range(3f, 7f);
-        fertilizer.OptimalAltitude = Random.Range(5f, 9f);
-        pesticide.OptimalAltitude = Random.Range(2f, 5f);
+        if (treatmentIcon != null)
+            treatmentIcon.SetTreatment(requiredTreatment);
 
         UpdateVisuals();
     }
@@ -39,75 +103,132 @@ public class CropField : MonoBehaviour
 
     private void UpdateVisuals()
     {
-        if (!scanned)
+        if (outline != null)
+            outline.enabled = scanned;
+
+        if (!requirement.Needed)
         {
-            outline.enabled = false;
+            if (outline != null)
+                outline.OutlineColor = Color.green;
+
+            ShowHealthy();
+
             return;
         }
 
-        outline.enabled = true;
+        switch (requiredTreatment)
+        {
+            case CropTreatment.Water:
 
-        if (pesticide.Needed)
-            outline.OutlineColor = Color.red;
-        else if (fertilizer.Needed)
-            outline.OutlineColor = Color.yellow;
-        else if (water.Needed)
-            outline.OutlineColor = Color.blue;
-        else
-            outline.OutlineColor = Color.green;
+                if (outline != null)
+                    outline.OutlineColor = Color.blue;
+
+                ShowHealthy();
+                break;
+
+            case CropTreatment.Fertilizer:
+
+                if (outline != null)
+                    outline.OutlineColor = Color.yellow;
+
+                ShowFertilizer();
+                break;
+
+            case CropTreatment.Pesticide:
+
+                if (outline != null)
+                    outline.OutlineColor = Color.red;
+
+                ShowPesticide();
+                break;
+        }
     }
 
-    public bool IsAltitudeCorrect(SprayType spray, float altitude)
+    #region Model Switching
+
+    private void ShowHealthy()
     {
-        TreatmentRequirement treatment = GetRequirement(spray);
+        SetModelVisible(healthyModel, true);
+        SetModelVisible(fertilizerModel, false);
+        SetModelVisible(pesticideModel, false);
+    }
 
-        if (!treatment.Needed)
-            return false;
+    private void ShowFertilizer()
+    {
+        SetModelVisible(healthyModel, false);
+        SetModelVisible(fertilizerModel, true);
+        SetModelVisible(pesticideModel, false);
+    }
 
+    private void ShowPesticide()
+    {
+        SetModelVisible(healthyModel, false);
+        SetModelVisible(fertilizerModel, false);
+        SetModelVisible(pesticideModel, true);
+    }
+
+    private void SetModelVisible(GameObject model, bool visible)
+    {
+        if (model == null)
+            return;
+
+        Renderer[] renderers = model.GetComponentsInChildren<Renderer>(true);
+
+        foreach (Renderer r in renderers)
+            r.enabled = visible;
+    }
+
+    #endregion
+
+    public bool IsAltitudeCorrect(float altitude)
+    {
         return Mathf.Abs(
-            altitude -
-            treatment.OptimalAltitude)
-            <= treatment.Tolerance;
+            altitude - requirement.OptimalAltitude)
+            <= requirement.Tolerance;
     }
 
-    public float GetOptimalAltitude(SprayType spray)
+    public float GetOptimalAltitude()
     {
-        return GetRequirement(spray).OptimalAltitude;
+        return requirement.OptimalAltitude;
     }
 
-    public float GetTolerance(SprayType spray)
+    public float GetTolerance()
     {
-        return GetRequirement(spray).Tolerance;
+        return requirement.Tolerance;
     }
 
-    private TreatmentRequirement GetRequirement(SprayType spray)
+    public CropTreatment GetRequiredTreatment()
     {
-        switch (spray)
-        {
-            case SprayType.Water:
-                return water;
-
-            case SprayType.Fertilizer:
-                return fertilizer;
-
-            default:
-                return pesticide;
-        }
+        return requiredTreatment;
     }
 
-    public void ReceiveTreatment(SprayType spray, float altitude)
+public void ReceiveTreatment(SprayType spray, float altitude)
+{
+    if (!requirement.Needed)
+        return;
+
+    if ((CropTreatment)spray != requiredTreatment)
+        return;
+
+    if (!IsAltitudeCorrect(altitude))
+        return;
+
+    requirement.Needed = false;
+
+    if (treatmentIcon != null)
+        treatmentIcon.Hide();
+
+    UpdateVisuals();
+
+    GameEvents.OnPlantTreated?.Invoke(this);
+
+    GameEvents.OnPlantCompleted?.Invoke();
+
+    MissionManager.Instance.NotifyCropCompleted(this);
+}
+
+    public static void ResetAltitudes()
     {
-        TreatmentRequirement treatment =
-            GetRequirement(spray);
-
-        if (!treatment.Needed)
-            return;
-
-        if (!IsAltitudeCorrect(spray, altitude))
-            return;
-
-        treatment.Needed = false;
-
-        UpdateVisuals();
+        altitudesInitialized = false;
     }
 }

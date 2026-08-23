@@ -24,6 +24,12 @@ public class AltitudeUI : MonoBehaviour
     private Tween colorTweenHandle;
     private Tween colorTweenText;
 
+    private void Start()
+    {
+        previousState = (AltitudeManager.AltitudeState)(-1);
+        UpdateColor();
+    }
+
     private void Update()
     {
         altitudeText.text =
@@ -54,13 +60,13 @@ public class AltitudeUI : MonoBehaviour
 
     private void UpdateColor()
     {
-        if (previousState == altitudeManager.CurrentState)
+        if (previousState == altitudeManager.SelectedState)
             return;
 
-        previousState = altitudeManager.CurrentState;
+        previousState = altitudeManager.SelectedState;
 
         Color targetColor =
-            altitudeManager.CurrentState ==
+            altitudeManager.SelectedState ==
             AltitudeManager.AltitudeState.Correct
                 ? correctColor
                 : warningColor;

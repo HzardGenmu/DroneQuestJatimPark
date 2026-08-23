@@ -4,14 +4,17 @@ using UnityEngine.InputSystem;
 public class DroneBattery : MonoBehaviour
 {
     [Header("Battery")]
-    [SerializeField] private float maxBattery = 100f;
+    [SerializeField] private float maxBattery = 180f;
 
     [SerializeField] private float passiveDrainRate = 1f;
 
     [SerializeField] private float sprayDrainRate = 2f;
 
-    [Header("UI")]
-    [SerializeField] private GameObject batteryDepletedPanel;
+    [Header("Drone")]
+    [SerializeField] private DroneController droneController;
+
+    [Header("Managers")]
+    [SerializeField] private LevelCompleteManager levelCompleteManager;
 
     [SerializeField] private PlayerInput playerInput;
 
@@ -21,16 +24,20 @@ public class DroneBattery : MonoBehaviour
 
     private bool isSpraying;
 
+    public float CurrentBattery => currentBattery;
+    public float MaxBattery => maxBattery;
+
     private void Start()
     {
         currentBattery = maxBattery;
-
-        batteryDepletedPanel.SetActive(false);
     }
 
     private void Update()
     {
         if (batteryDepleted)
+            return;
+
+        if (droneController.CurrentState != DroneController.DroneState.Flying)
             return;
 
         float drain = passiveDrainRate;
@@ -40,7 +47,7 @@ public class DroneBattery : MonoBehaviour
 
         currentBattery -= drain * Time.deltaTime;
 
-        if (currentBattery <= 0)
+        if (currentBattery <= 0f)
         {
             BatteryDepleted();
         }
@@ -50,13 +57,16 @@ public class DroneBattery : MonoBehaviour
     {
         batteryDepleted = true;
 
-        currentBattery = 0;
-
-        batteryDepletedPanel.SetActive(true);
+        currentBattery = 0f;
 
         playerInput.enabled = false;
 
+        GameEvents.OnBatteryDepleted?.Invoke();
+
         Debug.Log("Battery Depleted");
+
+        if (levelCompleteManager != null)
+            levelCompleteManager.FailLevel();
     }
 
     public void SetSpraying(bool value)

@@ -32,6 +32,9 @@ public class DroneController : MonoBehaviour
     [SerializeField] private float tiltSmoothness = 5f;
     [SerializeField] private Transform droneBody;
 
+    [Header("Joystick")]
+    [SerializeField] private FloatingJoystick joystick;
+
     public bool IsLandingAvailable => CanLand();
     public bool IsBusy =>
     CurrentState == DroneState.TakingOff ||
@@ -39,12 +42,15 @@ public class DroneController : MonoBehaviour
     public float CurrentAltitude => transform.position.y;
     public float MinAltitude => minAltitude;
     public float MaxAltitude => maxAltitude;
+    public float TargetAltitude => targetAltitude;
 
     public DroneState CurrentState { get; private set; }
 
     private Rigidbody rb;
 
     private Vector2 moveInput;
+    private Vector2 lookInput;
+    public Vector2 LookInput => lookInput;
 
     private float targetAltitude;
 
@@ -64,6 +70,11 @@ public class DroneController : MonoBehaviour
         targetAltitude = 3f;
 
         CurrentState = DroneState.TakingOff;
+    }
+
+    private void Start()
+    {
+        GameEvents.OnDroneTakeoff?.Invoke();
     }
 
     private void FixedUpdate()
@@ -98,6 +109,7 @@ public class DroneController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("MOVE EVENT");
         if (CurrentState != DroneState.Flying)
             return;
 
@@ -106,9 +118,16 @@ public class DroneController : MonoBehaviour
 
     private void HandleMovement()
     {
+        Vector2 input = moveInput;
+
+        if (joystick != null && joystick.IsDragging)
+        {
+            input = joystick.Input;
+        }
+
         Vector3 horizontalVelocity =
-            transform.forward * moveInput.y +
-            transform.right * moveInput.x;
+            transform.forward * input.y +
+            transform.right * input.x;
 
         horizontalVelocity *= moveSpeed;
 
@@ -138,6 +157,11 @@ public class DroneController : MonoBehaviour
         velocity.y = verticalVelocity;
 
         rb.linearVelocity = velocity;
+
+        Debug.Log($"moveInput = {moveInput}");
+        Debug.Log($"joystick.Input = {joystick.Input}");
+        Debug.Log($"horizontalVelocity = {horizontalVelocity}");
+        Debug.Log($"rb.linearVelocity = {rb.linearVelocity}");
     }
 
     private void HandleTakeoff()
@@ -203,15 +227,16 @@ public class DroneController : MonoBehaviour
         }
     }
 
-    public void SetTargetAltitude(float sliderValue)
+    public void SetTargetAltitude(float altitude)
     {
         if (CurrentState != DroneState.Flying)
             return;
 
-        targetAltitude = Mathf.Lerp(
-            minAltitude,
-            maxAltitude,
-            sliderValue);
+        targetAltitude =
+            Mathf.Clamp(
+                altitude,
+                minAltitude,
+                maxAltitude);
     }
 
     public bool CanLand()
@@ -245,8 +270,9 @@ public class DroneController : MonoBehaviour
         if (!CanLand())
             return;
 
-        CurrentState =
-            DroneState.Landing;
+        CurrentState = DroneState.Landing;
+
+        GameEvents.OnDroneLanding?.Invoke();
     }
 
     public void BeginTakeoff()
@@ -256,17 +282,27 @@ public class DroneController : MonoBehaviour
 
         targetAltitude = 3f;
 
-        CurrentState =
-            DroneState.TakingOff;
+        CurrentState = DroneState.TakingOff;
+
+        GameEvents.OnDroneTakeoff?.Invoke();
     }
 
     private void HandleVisualTilt()
     {
+        Vector2 input = moveInput;
+
+        if (joystick != null &&
+            joystick.IsDragging &&
+            joystick.Input.sqrMagnitude > 0.0001f)
+        {
+            input = joystick.Input;
+        }
+
         float targetPitch =
-            moveInput.y * maxTiltAngle;
+            input.y * maxTiltAngle;
 
         float targetRoll =
-            -moveInput.x * maxTiltAngle;
+            -input.x * maxTiltAngle;
 
         currentPitch =
             Mathf.Lerp(
@@ -285,5 +321,33 @@ public class DroneController : MonoBehaviour
                 currentPitch,
                 0f,
                 currentRoll);
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void Respawn(Vector3 position)
+    {
+        // Cancel any current movement state
+        moveInput = Vector2.zero;
+        lookInput = Vector2.zero;
+
+        if (joystick != null)
+            joystick.Cancel();
+
+        targetAltitude = 3f;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        rb.position = position;
+        rb.rotation = Quaternion.identity;
+
+        rb.Sleep();
+        rb.WakeUp();
+
+        CurrentState = DroneState.Flying;
     }
 }

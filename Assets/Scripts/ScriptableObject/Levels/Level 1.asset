@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3730aa91356cb0c41a5cba40c4914e9d, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: Erghi
-  sceneName: Erghi
+  levelName: Map #1
+  sceneName: Map #1
   description: 'The Drone Tutorial. EVERYONE Must take it or they get no free Pizza.
     Now go, take care of the plants
 

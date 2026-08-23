@@ -1,0 +1,413 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5872135050065654749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1440743021587631582}
+  - component: {fileID: 3429583585787497580}
+  - component: {fileID: 6424349849491710625}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1440743021587631582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872135050065654749}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4974.6147, y: 5.12372, z: -34249.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7247537226599909950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3429583585787497580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872135050065654749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d364075b6e720cb459fc9fb7531748eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapBoundary
+  drone: {fileID: 0}
+  mapCenter: {x: -1.65, y: 2.5, z: 4.35}
+  warningRadius: 21
+  respawnRadius: 31.5
+  respawnPoint: {fileID: 0}
+  staticEffect: {fileID: 6424349849491710625}
+  signalIcon: {fileID: 0}
+  signal4: {fileID: 21300000, guid: 558b5bd71fb4a8b43a1fa81999bb1f3f, type: 3}
+  signal3: {fileID: 21300000, guid: 03b132b90e2ede24fb4795eba5a6df2c, type: 3}
+  signal2: {fileID: 21300000, guid: d147c2142eaf7b74c975f07e4b294bc2, type: 3}
+  signal1: {fileID: 21300000, guid: 8e43832f4df8ed4439404c927113a999, type: 3}
+--- !u!114 &6424349849491710625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872135050065654749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5aa4b7e707975408a8d33bf4fd9fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignalStaticEffect
+  staticImage: {fileID: 0}
+  warningCanvas: {fileID: 0}
+  warningText: {fileID: 0}
+--- !u!1 &7191591848215701964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7247537226599909950}
+  m_Layer: 0
+  m_Name: System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7247537226599909950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7191591848215701964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4968.902, y: 0, z: 34239.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1440743021587631582}
+  - {fileID: 5233315138008913787}
+  - {fileID: 5207002522602658727}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7542079051154724553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5207002522602658727}
+  - component: {fileID: 7356785992597473205}
+  - component: {fileID: 4513572155903414246}
+  - component: {fileID: 2225475393330429010}
+  - component: {fileID: 7402832584032669325}
+  m_Layer: 0
+  m_Name: TutorialSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5207002522602658727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542079051154724553}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7247537226599909950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7356785992597473205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542079051154724553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fa80d8a97089540bfb08e76848b08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
+  steps:
+  - {fileID: 11400000, guid: 9335fd157a8fa20419cb68db03647eb8, type: 2}
+  - {fileID: 11400000, guid: aa74d978a57befa4cbaa49d68e879790, type: 2}
+  - {fileID: 11400000, guid: 1fd9adf444801ca4ca0abc8b2fc238bd, type: 2}
+  - {fileID: 11400000, guid: 2de074eb60962ec4daecd498c5a4c62e, type: 2}
+  - {fileID: 11400000, guid: a23ebb2340cbcba4aada50da1da2fa8a, type: 2}
+  - {fileID: 11400000, guid: 546acaeda4070354f96058ca8ae722ef, type: 2}
+  - {fileID: 11400000, guid: ffc0f188ce55ab747a85aec3b45cc82d, type: 2}
+  - {fileID: 11400000, guid: 14664f8601a2dba4fb851734610a550e, type: 2}
+  - {fileID: 11400000, guid: 6034475abd45b7b43ab73b770d58ab41, type: 2}
+  - {fileID: 11400000, guid: 3858c85c62b417c4faa7e2ce4ecdbe1d, type: 2}
+  - {fileID: 11400000, guid: d8e22ccf9030cf04d97720ef674de3ad, type: 2}
+  - {fileID: 11400000, guid: df091209199644443aaa6d578790b18c, type: 2}
+  - {fileID: 11400000, guid: 26a72fa5d6de2ed41ae1d711c39f44fe, type: 2}
+  - {fileID: 11400000, guid: 674d90cf9a0955041873f1bbc72ae1ae, type: 2}
+  tutorialSetup: {fileID: 0}
+--- !u!114 &4513572155903414246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542079051154724553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82c4f8148c711d4d9e3a7e362cb23f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialTargetRegistry
+  targets:
+  - id: Drone
+    target: {fileID: 0}
+  - id: LeftArea
+    target: {fileID: 0}
+  - id: CameraButton
+    target: {fileID: 0}
+  - id: PlantFirstScanned
+    target: {fileID: 0}
+  - id: WaterButton
+    target: {fileID: 0}
+  - id: PesticideButton
+    target: {fileID: 0}
+  - id: FertilizeButton
+    target: {fileID: 0}
+  - id: MainActionButton
+    target: {fileID: 0}
+  - id: MainActionButton
+    target: {fileID: 0}
+  - id: Altitude
+    target: {fileID: 0}
+  - id: PlantFirstTreated
+    target: {fileID: 0}
+--- !u!114 &2225475393330429010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542079051154724553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be96cdb73323a043af4dc18872f2d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialUI
+  canvasRect: {fileID: 0}
+  panel: {fileID: 0}
+  contentRoot: {fileID: 0}
+  descriptionText: {fileID: 0}
+  contentContainer: {fileID: 0}
+  darkOverlay: {fileID: 0}
+  panelGraphic: {fileID: 0}
+  spotlightOverlay: {fileID: 7402832584032669325}
+--- !u!114 &7402832584032669325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542079051154724553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8937cdb6b183d094f8e9824600a31ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialSpotlightOverlay
+  overlayImage: {fileID: 0}
+  worldCamera: {fileID: 0}
+--- !u!1 &7970270032160660302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5233315138008913787}
+  - component: {fileID: 617774964564694969}
+  - component: {fileID: 7613960543064683332}
+  - component: {fileID: 6990133198462950749}
+  - component: {fileID: 7735209341303101973}
+  - component: {fileID: 6142959727884215507}
+  - component: {fileID: 5673019079695978555}
+  - component: {fileID: 2140431332947025581}
+  - component: {fileID: 6665565747781011834}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5233315138008913787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7247537226599909950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &617774964564694969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96720c6143905145b74a86a965915c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
+  pausePanel: {fileID: 0}
+  quitPanel: {fileID: 0}
+  settingsMenu: {fileID: 5673019079695978555}
+--- !u!114 &7613960543064683332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34ab3b73cf095d4d8fb14fae9335706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AltitudeManager
+  drone: {fileID: 0}
+  sprayer: {fileID: 0}
+  cropLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  checkDistance: 25
+  checkInterval: 0.05
+--- !u!114 &6990133198462950749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35dc235ca472e24d8f8929279830c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AltitudeUI
+  drone: {fileID: 0}
+  altitudeManager: {fileID: 7613960543064683332}
+  sliderFill: {fileID: 0}
+  handle: {fileID: 0}
+  altitudeText: {fileID: 0}
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &7735209341303101973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927ae1f6f8c96f94f9a3d742fdba2692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelCompleteManager
+  levelIndex: 1
+  battery: {fileID: 0}
+  resultPanel: {fileID: 0}
+--- !u!114 &6142959727884215507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fec2d3af067dbe43a28c198c8e270ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionManager
+  objectiveUI: {fileID: 6665565747781011834}
+  levelCompleteManager: {fileID: 7735209341303101973}
+--- !u!114 &5673019079695978555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5374b2e41ba9dd948934ff03dd0774ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsMenu
+  panel: {fileID: 0}
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+--- !u!114 &2140431332947025581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ad67186891b4e42874f30bd8aea588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  mainActionRing: {fileID: 0}
+  sprayer: {fileID: 0}
+  waterRing: {fileID: 0}
+  fertilizerRing: {fileID: 0}
+  pesticideRing: {fileID: 0}
+  needTutorial: 1
+--- !u!114 &6665565747781011834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970270032160660302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0190171a0038cb448ed97e111bce5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionObjectiveUI
+  objectivePanel: {fileID: 0}
+  notificationBadge: {fileID: 0}
+  waterSlider: {fileID: 0}
+  waterText: {fileID: 0}
+  fertilizerSlider: {fileID: 0}
+  fertilizerText: {fileID: 0}
+  pesticideSlider: {fileID: 0}
+  pesticideText: {fileID: 0}
