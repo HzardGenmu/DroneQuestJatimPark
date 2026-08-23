@@ -16,7 +16,7 @@ MonoBehaviour:
   focusItems:
   - targetID: PlantFirstScanned
     autoSize: 0
-    highlightSize: {x: 400, y: 400}
+    highlightSize: {x: 900, y: 650}
     highlightOffset: {x: 0, y: 0}
     padding: 0
     showArrow: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   triggerType: 4
   pauseGame: 1
   panelAnchor: 1
-  panelOffset: {x: -620, y: 150}
+  panelOffset: {x: 0, y: 850}
   activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit
@@ -34,11 +34,8 @@ MonoBehaviour:
   flipPanel: 0
   image: {fileID: 0}
   showButtons: 1
-  button1Text: Continue
-  button2Text: Skip
-  onButton1:
-    m_PersistentCalls:
-      m_Calls: []
-  onButton2:
-    m_PersistentCalls:
-      m_Calls: []
+  showPreviousButton: 1
+  showNextButton: 1
+  previousButtonText: Prev
+  nextButtonText: Next
+  skipButtonText: Skip

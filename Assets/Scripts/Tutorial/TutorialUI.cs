@@ -30,6 +30,16 @@ public class TutorialUI : MonoBehaviour
     [SerializeField]
     private TutorialSpotlightOverlay spotlightOverlay;
 
+    [Header("Buttons")]
+    [SerializeField] private GameObject previousButton;
+    [SerializeField] private GameObject nextButton;
+
+    [Header("Prompt Backgrounds")]
+    [SerializeField] private GameObject upBackground;
+    [SerializeField] private GameObject downBackground;
+    [SerializeField] private GameObject leftBackground;
+    [SerializeField] private GameObject rightBackground;
+
     private readonly List<Canvas> elevatedCanvases =
     new List<Canvas>();
 
@@ -62,9 +72,25 @@ public class TutorialUI : MonoBehaviour
 
         panel.SetActive(true);
 
+        descriptionText.text = step.description;
+
+        UpdatePromptBackground(step.panelAnchor);
+
         FlipPanel(step.flipPanel);
 
-        descriptionText.text = step.description;
+        if (step.showButtons)
+        {
+            previousButton.SetActive(
+                TutorialManager.Instance.CurrentStepIndex > 0
+            );
+
+            nextButton.SetActive(true);
+        }
+        else
+        {
+            previousButton.SetActive(false);
+            nextButton.SetActive(false);
+        }
 
         PositionPanel(step);
 
@@ -430,6 +456,16 @@ public class TutorialUI : MonoBehaviour
         OnContinueButton();
     }
 
+    public void OnPreviousButton()
+    {
+        Debug.Log("Previous button clicked");
+
+        if (TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.PreviousStep();
+        }
+    }
+
     private void ClearElevatedUI()
     {
         //foreach (Canvas canvas in elevatedCanvases)
@@ -468,6 +504,57 @@ public class TutorialUI : MonoBehaviour
         elevatedCanvases.Clear();
         originalSortingOrders.Clear();
         originalOverrideStates.Clear();
+    }
+
+    private void UpdatePromptBackground(TutorialPanelAnchor anchor)
+    {
+        if (upBackground != null)
+            upBackground.SetActive(false);
+
+        if (downBackground != null)
+            downBackground.SetActive(false);
+
+        if (leftBackground != null)
+            leftBackground.SetActive(false);
+
+        if (rightBackground != null)
+            rightBackground.SetActive(false);
+
+        switch (anchor)
+        {
+            case TutorialPanelAnchor.Top:
+
+                if (upBackground != null)
+                    upBackground.SetActive(true);
+
+                break;
+
+            case TutorialPanelAnchor.Bottom:
+
+                if (downBackground != null)
+                    downBackground.SetActive(true);
+
+                break;
+
+            case TutorialPanelAnchor.Left:
+
+                if (leftBackground != null)
+                    leftBackground.SetActive(true);
+
+                break;
+
+            case TutorialPanelAnchor.Right:
+
+                if (rightBackground != null)
+                    rightBackground.SetActive(true);
+
+                break;
+
+            case TutorialPanelAnchor.Center:
+
+                // No directional background.
+                break;
+        }
     }
 
     private void ElevateUIElement(

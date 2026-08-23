@@ -157,11 +157,6 @@ public class DroneController : MonoBehaviour
         velocity.y = verticalVelocity;
 
         rb.linearVelocity = velocity;
-
-        Debug.Log($"moveInput = {moveInput}");
-        Debug.Log($"joystick.Input = {joystick.Input}");
-        Debug.Log($"horizontalVelocity = {horizontalVelocity}");
-        Debug.Log($"rb.linearVelocity = {rb.linearVelocity}");
     }
 
     private void HandleTakeoff()

@@ -25,6 +25,7 @@ public class TutorialManager : MonoBehaviour
 
     private bool tutorialActive => isRunning && currentStepIndex >= 0 && currentStepIndex < steps.Count;
 
+    public int CurrentStepIndex => currentStepIndex;
     public TutorialStep CurrentStep =>
         currentStepIndex >= 0 &&
         currentStepIndex < steps.Count
@@ -112,15 +113,32 @@ public class TutorialManager : MonoBehaviour
 
     public void NextStep()
     {
+        if (!isRunning)
+            return;
+
+        if (isTransitioningStep)
+            return;
+
+        isTransitioningStep = true;
+
         currentStepIndex++;
 
         if (currentStepIndex >= steps.Count)
         {
+            isTransitioningStep = false;
             EndTutorial();
             return;
         }
 
         ShowStep(steps[currentStepIndex]);
+
+        isTransitioningStep = false;
+
+        CheckCurrentStepState();
+
+        Debug.Log(
+            $"Moved to Step {currentStepIndex}"
+        );
     }
 
     public void CompleteStep()
@@ -135,19 +153,37 @@ public class TutorialManager : MonoBehaviour
             $"Completing Step {currentStepIndex}"
         );
 
-        isTransitioningStep = true;
-
         NextStep();
+    }
 
-        isTransitioningStep = false;
 
-        // Check the newly entered step AFTER
-        // the transition lock has been released.
-        CheckCurrentStepState();
+    public void PreviousStep()
+    {
+        if (!isRunning)
+            return;
+
+        // Already at the first step.
+        if (currentStepIndex <= 0)
+        {
+            Debug.Log("Already at the first tutorial step.");
+            return;
+        }
+
+        if (isTransitioningStep)
+            return;
 
         Debug.Log(
-            $"Moved to Step {currentStepIndex}"
+            $"Going back from Step {currentStepIndex} " +
+            $"to Step {currentStepIndex - 1}"
         );
+
+        isTransitioningStep = true;
+
+        currentStepIndex--;
+
+        ShowStep(steps[currentStepIndex]);
+
+        isTransitioningStep = false;
     }
 
     void ShowStep(TutorialStep step)
@@ -368,15 +404,15 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void HandlePlantScanned()
-        => CheckTrigger(
-            TutorialTriggerType.OnPlantScanned
-        );
+    //void HandlePlantScanned()
+    //    => CheckTrigger(
+    //        TutorialTriggerType.OnPlantScanned
+    //    );
 
-    void HandlePlantTreated()
-        => CheckTrigger(
-            TutorialTriggerType.OnPlantTreated
-        );
+    //void HandlePlantTreated()
+    //    => CheckTrigger(
+    //        TutorialTriggerType.OnPlantTreated
+    //    );
     private void HandleCameraModeChanged()
     {
         CheckTrigger(

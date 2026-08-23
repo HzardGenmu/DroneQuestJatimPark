@@ -16,7 +16,7 @@ MonoBehaviour:
     kebawah.
   focusItems:
   - targetID: CameraButton
-    autoSize: 1
+    autoSize: 0
     highlightSize: {x: 200, y: 200}
     highlightOffset: {x: 0, y: 0}
     padding: 20
@@ -27,19 +27,16 @@ MonoBehaviour:
   triggerType: 4
   pauseGame: 1
   panelAnchor: 0
-  panelOffset: {x: 550, y: -250}
+  panelOffset: {x: 65, y: -575}
   activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit
   autoFlipPanel: 1
-  flipPanel: 1
+  flipPanel: 0
   image: {fileID: 0}
   showButtons: 1
-  button1Text: Continue
-  button2Text: Skip
-  onButton1:
-    m_PersistentCalls:
-      m_Calls: []
-  onButton2:
-    m_PersistentCalls:
-      m_Calls: []
+  showPreviousButton: 1
+  showNextButton: 1
+  previousButtonText: Prev
+  nextButtonText: Next
+  skipButtonText: Skip

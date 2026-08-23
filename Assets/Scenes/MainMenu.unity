@@ -1194,7 +1194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1095, y: -0.014503479}
+  m_AnchoredPosition: {x: 1095, y: -0.014526367}
   m_SizeDelta: {x: 0, y: -29.732}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &282876362
@@ -2342,8 +2342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40, y: -95.2}
-  m_SizeDelta: {x: 1102.2783, y: 109.259}
+  m_AnchoredPosition: {x: 390, y: -27}
+  m_SizeDelta: {x: 1690.8994, y: 167.6037}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &466555009
 MonoBehaviour:
@@ -2365,7 +2365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9e49542df8d419841851b6d3c9aeca52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c4e1687c460e03468a451dd8333bbfb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3489,7 +3489,7 @@ MonoBehaviour:
   menuCanvas: {fileID: 0}
   fadeImage: {fileID: 0}
   dispatchTarget: {fileID: 700782160}
-  gameplayScene: MapSelector 1
+  gameplayScene: MapSelector
   rotateDuration: 0.5
   takeoffHeight: 1.5
   takeoffDuration: 0.8
@@ -7280,7 +7280,7 @@ Transform:
   m_GameObject: {fileID: 1842795875}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05526, y: 0.00825, z: -0.899}
+  m_LocalPosition: {x: 0.055, y: -0.03, z: -0.9}
   m_LocalScale: {x: 0.45571193, y: 0.40412045, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

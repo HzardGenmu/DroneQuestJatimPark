@@ -25,8 +25,8 @@ MonoBehaviour:
     pulse: 0
   triggerType: 4
   pauseGame: 1
-  panelAnchor: 2
-  panelOffset: {x: -280, y: 0}
+  panelAnchor: 3
+  panelOffset: {x: -850, y: 0}
   activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit
@@ -34,11 +34,8 @@ MonoBehaviour:
   flipPanel: 0
   image: {fileID: 0}
   showButtons: 1
-  button1Text: Continue
-  button2Text: Skip
-  onButton1:
-    m_PersistentCalls:
-      m_Calls: []
-  onButton2:
-    m_PersistentCalls:
-      m_Calls: []
+  showPreviousButton: 1
+  showNextButton: 1
+  previousButtonText: Prev
+  nextButtonText: Next
+  skipButtonText: Skip

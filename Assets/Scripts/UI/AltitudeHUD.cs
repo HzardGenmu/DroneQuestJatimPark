@@ -10,24 +10,31 @@ public class AltitudeUI : MonoBehaviour
     [SerializeField] private AltitudeManager altitudeManager;
 
     [Header("UI")]
-    //[SerializeField] private Slider altitudeSlider;
     [SerializeField] private Image sliderFill;
     [SerializeField] private Image handle;
     [SerializeField] private TMP_Text altitudeText;
 
-    [Header("Colors")]
+    [Header("Correct Altitude Assets")]
+    [SerializeField] private Sprite correctFillSprite;
+    [SerializeField] private Sprite correctHandleSprite;
+
+    [Header("Wrong Altitude Assets")]
+    [SerializeField] private Sprite warningFillSprite;
+    [SerializeField] private Sprite warningHandleSprite;
+
+    [Header("Text Colors")]
     [SerializeField] private Color correctColor = Color.green;
     [SerializeField] private Color warningColor = Color.red;
 
     private AltitudeManager.AltitudeState previousState;
-    private Tween colorTweenFill;
-    private Tween colorTweenHandle;
+
     private Tween colorTweenText;
 
     private void Start()
     {
         previousState = (AltitudeManager.AltitudeState)(-1);
-        UpdateColor();
+
+        UpdateVisual();
     }
 
     private void Update()
@@ -35,57 +42,52 @@ public class AltitudeUI : MonoBehaviour
         altitudeText.text =
             $"{drone.CurrentAltitude:0.0}m";
 
-        UpdateColor();
+        UpdateVisual();
     }
 
-    //private void UpdateAltitude()
-    //{
-    //    float altitude = drone.CurrentAltitude;
-
-    //    float normalized =
-    //        Mathf.InverseLerp(
-    //            drone.MinAltitude,
-    //            drone.MaxAltitude,
-    //            altitude);
-
-    //    if (Mathf.Abs(normalized - lastSliderValue) > 0.002f)
-    //    {
-    //        lastSliderValue = normalized;
-
-    //        altitudeSlider.value = normalized;
-
-    //        altitudeText.text = $"{altitude:0.0}m";
-    //    }
-    //}
-
-    private void UpdateColor()
+    private void UpdateVisual()
     {
         if (previousState == altitudeManager.SelectedState)
             return;
 
         previousState = altitudeManager.SelectedState;
 
-        Color targetColor =
+        bool isCorrect =
             altitudeManager.SelectedState ==
-            AltitudeManager.AltitudeState.Correct
+            AltitudeManager.AltitudeState.Correct;
+
+        Sprite targetFillSprite =
+            isCorrect
+                ? correctFillSprite
+                : warningFillSprite;
+
+        Sprite targetHandleSprite =
+            isCorrect
+                ? correctHandleSprite
+                : warningHandleSprite;
+
+        if (sliderFill != null)
+            sliderFill.sprite = targetFillSprite;
+
+        if (handle != null)
+            handle.sprite = targetHandleSprite;
+
+        Color targetColor =
+            isCorrect
                 ? correctColor
                 : warningColor;
 
-        colorTweenFill?.Kill();
-        colorTweenHandle?.Kill();
         colorTweenText?.Kill();
 
-        colorTweenFill =
-            sliderFill.DOColor(targetColor, 0.2f);
+        if (altitudeText != null)
+        {
+            colorTweenText =
+                altitudeText.DOColor(
+                    targetColor,
+                    0.2f);
+        }
 
-        colorTweenHandle =
-            handle.DOColor(targetColor, 0.2f);
-
-        colorTweenText =
-            altitudeText.DOColor(targetColor, 0.2f);
-
-        if (altitudeManager.CurrentState ==
-            AltitudeManager.AltitudeState.Correct)
+        if (isCorrect && handle != null)
         {
             handle.transform.DOKill();
 
@@ -97,15 +99,4 @@ public class AltitudeUI : MonoBehaviour
                     0.8f);
         }
     }
-
-    //public void WrongAltitudeFeedback()
-    //{
-    //    altitudeSlider.transform.DOKill();
-
-    //    altitudeSlider.transform
-    //        .DOShakePosition(
-    //            0.25f,
-    //            6f,
-    //            20);
-    //}
 }

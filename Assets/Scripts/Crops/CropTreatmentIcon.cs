@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Cinemachine;
 
 public class CropTreatmentIcon : MonoBehaviour
 {
@@ -11,35 +12,89 @@ public class CropTreatmentIcon : MonoBehaviour
     [SerializeField] private Sprite pesticideIcon;
 
     [Header("Billboard")]
-    [SerializeField] private Transform player;
+    [SerializeField] private CinemachineBrain brain;
+    [SerializeField] private DroneCamera droneCamera;
 
-    [SerializeField] private bool rotateOnlyHorizontally = true;
+    [Header("Bottom Camera")]
+    [SerializeField] private float bottomCameraTilt = 90f;
+
+    private float originalYRotation;
+
+    private void Awake()
+    {
+        // Remember the icon's original horizontal orientation.
+        originalYRotation = transform.eulerAngles.y;
+    }
 
     private void LateUpdate()
     {
-        if (player == null)
+        if (brain == null)
         {
-            DroneController drone =
-                FindAnyObjectByType<DroneController>();
+            Camera mainCamera = Camera.main;
 
-            if (drone != null)
-                player = drone.transform;
+            if (mainCamera != null)
+                brain = mainCamera.GetComponent<CinemachineBrain>();
         }
 
-        if (player == null)
+        if (droneCamera == null)
+        {
+            droneCamera = FindAnyObjectByType<DroneCamera>();
+        }
+
+        if (brain == null || droneCamera == null)
             return;
 
-        Vector3 direction =
-            player.position - transform.position;
+        Camera activeCamera = brain.OutputCamera;
 
-        if (rotateOnlyHorizontally)
-            direction.y = 0f;
+        if (activeCamera == null)
+            return;
+
+        if (droneCamera.IsBottomCameraActive)
+        {
+            UpdateBottomCameraRotation();
+        }
+        else
+        {
+            UpdateFollowCameraRotation(activeCamera);
+        }
+    }
+
+    private void UpdateFollowCameraRotation(Camera activeCamera)
+    {
+        Vector3 direction =
+            activeCamera.transform.position - transform.position;
+
+        // Ignore vertical difference.
+        // The icon only rotates horizontally.
+        direction.y = 0f;
 
         if (direction.sqrMagnitude < 0.001f)
             return;
 
         transform.rotation =
             Quaternion.LookRotation(direction);
+    }
+
+    private void UpdateBottomCameraRotation()
+    {
+        // Reset horizontal rotation to the original orientation.
+        Quaternion horizontalRotation =
+            Quaternion.Euler(
+                0f,
+                originalYRotation,
+                0f
+            );
+
+        // Pivot upward/downward from that original orientation.
+        Quaternion tilt =
+            Quaternion.Euler(
+                bottomCameraTilt,
+                0f,
+                0f
+            );
+
+        transform.rotation =
+            horizontalRotation * tilt;
     }
 
     public void SetTreatment(CropTreatment treatment)

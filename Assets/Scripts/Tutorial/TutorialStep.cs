@@ -60,9 +60,11 @@ public class TutorialStep : ScriptableObject
     [Header("Buttons")]
     public bool showButtons = true;
 
-    public string button1Text = "Continue";
-    public string button2Text = "Skip";
+    public bool showPreviousButton = true;
+    public bool showNextButton = true;
 
-    public UnityEvent onButton1;
-    public UnityEvent onButton2;
+    public string previousButtonText = "Prev";
+    public string nextButtonText = "Next";
+
+    public string skipButtonText = "Skip";
 }

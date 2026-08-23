@@ -18,6 +18,7 @@ public class CropField : MonoBehaviour
 
     [Header("Models")]
     [SerializeField] private GameObject healthyModel;
+    [SerializeField] private GameObject waterModel;
     [SerializeField] private GameObject fertilizerModel;
     [SerializeField] private GameObject pesticideModel;
 
@@ -78,6 +79,9 @@ public class CropField : MonoBehaviour
         if (healthyModel != null)
             healthyModel.SetActive(true);
 
+        if (waterModel != null)
+            waterModel.SetActive(true);
+
         if (fertilizerModel != null)
             fertilizerModel.SetActive(true);
 
@@ -123,7 +127,7 @@ public class CropField : MonoBehaviour
                 if (outline != null)
                     outline.OutlineColor = Color.blue;
 
-                ShowHealthy();
+                ShowWater();
                 break;
 
             case CropTreatment.Fertilizer:
@@ -149,6 +153,15 @@ public class CropField : MonoBehaviour
     private void ShowHealthy()
     {
         SetModelVisible(healthyModel, true);
+        SetModelVisible(waterModel, false);
+        SetModelVisible(fertilizerModel, false);
+        SetModelVisible(pesticideModel, false);
+    }
+
+    private void ShowWater()
+    {
+        SetModelVisible(healthyModel, false);
+        SetModelVisible(waterModel, true);
         SetModelVisible(fertilizerModel, false);
         SetModelVisible(pesticideModel, false);
     }
@@ -156,6 +169,7 @@ public class CropField : MonoBehaviour
     private void ShowFertilizer()
     {
         SetModelVisible(healthyModel, false);
+        SetModelVisible(waterModel, false);
         SetModelVisible(fertilizerModel, true);
         SetModelVisible(pesticideModel, false);
     }
@@ -163,6 +177,7 @@ public class CropField : MonoBehaviour
     private void ShowPesticide()
     {
         SetModelVisible(healthyModel, false);
+        SetModelVisible(waterModel, false);
         SetModelVisible(fertilizerModel, false);
         SetModelVisible(pesticideModel, true);
     }
@@ -172,10 +187,13 @@ public class CropField : MonoBehaviour
         if (model == null)
             return;
 
-        Renderer[] renderers = model.GetComponentsInChildren<Renderer>(true);
+        Renderer[] renderers =
+            model.GetComponentsInChildren<Renderer>(true);
 
-        foreach (Renderer r in renderers)
-            r.enabled = visible;
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = visible;
+        }
     }
 
     #endregion
