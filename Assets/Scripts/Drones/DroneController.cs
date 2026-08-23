@@ -237,12 +237,10 @@ public class DroneController : MonoBehaviour
     public bool CanLand()
     {
         if (CurrentState != DroneState.Flying)
+        {
+            currentHelipad = null;
             return false;
-
-        Debug.DrawRay(
-            transform.position,
-            Vector3.down * landingDetectionDistance,
-            Color.red);
+        }
 
         if (Physics.Raycast(
             transform.position,
@@ -252,7 +250,8 @@ public class DroneController : MonoBehaviour
             helipadLayer))
         {
             currentHelipad =
-                hit.collider.GetComponent<Helipad>();
+                hit.collider.GetComponentInParent<Helipad>();
+
             return currentHelipad != null;
         }
 

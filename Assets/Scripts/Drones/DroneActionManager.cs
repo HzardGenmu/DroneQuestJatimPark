@@ -34,15 +34,19 @@ public class DroneActionManager : MonoBehaviour
             case DroneController.DroneState.Landing:
                 CurrentMode = ActionMode.Land;
                 return;
-        }
 
-        if (drone.CanLand())
-        {
-            CurrentMode = ActionMode.Land;
-        }
-        else
-        {
-            CurrentMode = ActionMode.Spray;
+            case DroneController.DroneState.Flying:
+
+                // Default flying action is Spray.
+                CurrentMode = ActionMode.Spray;
+
+                // Only switch to Land when above a valid helipad.
+                if (drone.CanLand())
+                {
+                    CurrentMode = ActionMode.Land;
+                }
+
+                return;
         }
     }
 

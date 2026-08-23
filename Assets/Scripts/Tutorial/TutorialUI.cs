@@ -33,6 +33,7 @@ public class TutorialUI : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private GameObject previousButton;
     [SerializeField] private GameObject nextButton;
+    [SerializeField] private RectTransform buttonsRoot;
 
     [Header("Prompt Backgrounds")]
     [SerializeField] private GameObject upBackground;
@@ -56,9 +57,14 @@ public class TutorialUI : MonoBehaviour
 
     private TutorialStep activeStep;
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
+
+        panel.SetActive(false);
+        darkOverlay.SetActive(false);
+
+        SetupButtonsOnTop();
     }
 
     private void Update()
@@ -555,6 +561,31 @@ public class TutorialUI : MonoBehaviour
                 // No directional background.
                 break;
         }
+    }
+
+    private void SetupButtonsOnTop()
+    {
+        if (buttonsRoot == null)
+            return;
+
+        Canvas canvas =
+            buttonsRoot.GetComponent<Canvas>();
+
+        if (canvas == null)
+            canvas =
+                buttonsRoot.gameObject.AddComponent<Canvas>();
+
+        canvas.overrideSorting = true;
+
+        // Higher than the highlighted UI.
+        canvas.sortingOrder = 2000;
+
+        // Make sure the nested Canvas can receive UI input.
+        GraphicRaycaster raycaster =
+            buttonsRoot.GetComponent<GraphicRaycaster>();
+
+        if (raycaster == null)
+            buttonsRoot.gameObject.AddComponent<GraphicRaycaster>();
     }
 
     private void ElevateUIElement(

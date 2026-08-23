@@ -17,17 +17,8 @@ MonoBehaviour:
   - targetID: PesticideButton
     autoSize: 1
     highlightSize: {x: 200, y: 200}
-    highlightOffset: {x: -550, y: 0}
+    highlightOffset: {x: -575, y: 0}
     padding: 20
-    showArrow: 0
-    arrowDirection: 0
-    arrowOffset: {x: 0, y: 0}
-    pulse: 0
-  - targetID: PlantFirstScanned
-    autoSize: 0
-    highlightSize: {x: 900, y: 650}
-    highlightOffset: {x: 0, y: 0}
-    padding: 0
     showArrow: 0
     arrowDirection: 0
     arrowOffset: {x: 0, y: 0}
@@ -35,7 +26,7 @@ MonoBehaviour:
   triggerType: 4
   pauseGame: 1
   panelAnchor: 3
-  panelOffset: {x: -800, y: 0}
+  panelOffset: {x: -825, y: 0}
   activateWhileActive: []
   showInputPrompt: 1
   inputActionName: Submit

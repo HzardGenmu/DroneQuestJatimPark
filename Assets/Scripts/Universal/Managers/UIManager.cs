@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image pesticideRing;
 
     [SerializeField] private bool needTutorial = false;
+    [SerializeField] private float tutorialStartDelay = 3f;
 
     private void Awake()
     {
@@ -29,8 +31,15 @@ public class UIManager : MonoBehaviour
 
         if (needTutorial)
         {
-            CheckTutorial();
+            StartCoroutine(StartTutorialAfterDelay());
         }
+    }
+
+    private IEnumerator StartTutorialAfterDelay()
+    {
+        yield return new WaitForSeconds(tutorialStartDelay);
+
+        CheckTutorial();
     }
 
     #region Main Action Button
