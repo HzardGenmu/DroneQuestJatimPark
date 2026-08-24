@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 2 - Movement
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Coba gerakan Drone dengan sisi kiri layar!
+  description: Gerakkan drone menggunakan joystick di sisi kiri layar.
   focusItems:
   - targetID: LeftArea
     autoSize: 1

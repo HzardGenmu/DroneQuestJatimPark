@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 4e - MainActionButton
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Siram cairan yang dibutuhkan oleh tanaman dengan tombol ini!
+  description: Gunakan tombol ini untuk menyemprotkan cairan sesuai kebutuhan tanaman.
   focusItems:
   - targetID: MainActionButton
     autoSize: 1

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 4a - PlantExplanation
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Ini adalah tanaman yang harus kamu rawat. Perhatikan Outline-nya.
+  description: Ini tanaman yang perlu kamu rawat. Perhatikan ikonnya untuk mengetahui
+    kebutuhannya.
   focusItems:
   - targetID: PlantFirstScanned
     autoSize: 0

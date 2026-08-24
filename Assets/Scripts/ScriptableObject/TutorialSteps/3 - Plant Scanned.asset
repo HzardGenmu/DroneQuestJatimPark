@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 3 - Plant Scanned
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Drone selalu melakukan scan automatis. Ganti Camera untuk melihat
-    kebawah.
+  description: Drone melakukan scan otomatis. Ganti kamera untuk melihat area di
+    bawah drone.
   focusItems:
   - targetID: CameraButton
     autoSize: 0

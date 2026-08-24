@@ -224,6 +224,13 @@ MonoBehaviour:
   darkOverlay: {fileID: 0}
   panelGraphic: {fileID: 0}
   spotlightOverlay: {fileID: 7402832584032669325}
+  previousButton: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonsRoot: {fileID: 0}
+  upBackground: {fileID: 0}
+  downBackground: {fileID: 0}
+  leftBackground: {fileID: 0}
+  rightBackground: {fileID: 0}
 --- !u!114 &7402832584032669325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +398,7 @@ MonoBehaviour:
   fertilizerRing: {fileID: 0}
   pesticideRing: {fileID: 0}
   needTutorial: 1
+  tutorialStartDelay: 3
 --- !u!114 &6665565747781011834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3709881394590167090}
   - component: {fileID: 5429956276699667148}
+  - component: {fileID: 4767538717863556062}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -450,7 +459,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8001753149573544890}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0459daacab433444ad39b0d05934c86, type: 3}
   m_Name: 
@@ -459,3 +468,15 @@ MonoBehaviour:
   iosAppKey: 
   bannerAndroid: ybflhq5jc26qqkhc
   bannerIOS: Banner_iOS
+--- !u!114 &4767538717863556062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001753149573544890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd209612ba3cb6f45a743c4530c0ee08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoogleBannerTest

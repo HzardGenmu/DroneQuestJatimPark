@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 5a - AltitudeInput
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Sebelum disiram, ketinggian drone harus sesuai agar optimal.
+  description: Pastikan ketinggian drone sudah tepat sebelum menyemprotkan cairan.
   focusItems:
   - targetID: Altitude
     autoSize: 1

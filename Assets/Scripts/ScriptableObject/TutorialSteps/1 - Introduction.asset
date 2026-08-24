@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 1 - Introduction
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Ini Drone yang kamu kendalikan.
+  description: Ini adalah drone yang akan kamu kendalikan selama permainan.
   focusItems:
   - targetID: Drone
     autoSize: 0

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ed872764f00bb48bf3d9ec68afe68e, type: 3}
   m_Name: 4b - WaterNeed
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
-  description: Setiap tanaman memerlukan kebutuhan berbeda. Kebutuhan dilihat dari
-    warna outlinenye. Biru artinya Air.
+  description: Outline berwarna biru menandakan bahwa tanaman membutuhkan air.
   focusItems:
   - targetID: WaterButton
     autoSize: 1
